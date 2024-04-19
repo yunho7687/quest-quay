@@ -2,7 +2,7 @@
 Step 0: install python 3.4+
 ### Sept 1: Create a Python virtual environment and activate the Python interpreter from it.
 ```bash
-python -m venv .venv
+python3 -m venv .venv
 ```
 ```bash
 source .venv/bin/activate
