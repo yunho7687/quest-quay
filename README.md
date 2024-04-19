@@ -18,6 +18,6 @@ pip3 install -r requirements.txt
 flask run
 ```
 Open a browser and go to URL:   
-`http://<IP>:5000 `    
+`http://<IP>:5505 `    
    
-`http://127.0.0.1:5000 `
+`http://127.0.0.1:5505 `
