@@ -1,4 +1,5 @@
 # ignore the python venv
+.venv
 venv
 # ignore the pycache file
 __pycache__

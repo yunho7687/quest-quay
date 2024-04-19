@@ -1,13 +1,16 @@
 # quest-quay
 Step 0: install python 3.4+
-### Sept 1: create a Python venv     
+### Sept 1: Create a Python virtual environment and activate the Python interpreter from it.
 ```bash
-python -m venv venv
+python -m venv .venv
+```
+```bash
+source .venv/bin/activate
 ```
 
-### Sept 2: install the requirements      
+### Sept 2: Install the requirements by `pip3`   
 ```bash
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 ### Sept 3: 
