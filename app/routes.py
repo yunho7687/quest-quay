@@ -8,5 +8,11 @@ def roof():
 
 @app.route('/index')
 def index():
-    return render_template("index.html")
+    title = ""
+    return render_template("index.html",title=title)
+@app.route('/login')
+def login():
+    title = "Login"
+    return render_template("index.html",title=title)
+
 
