@@ -3,20 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     {% if title %}
     <title>{{ title }} - Quest Quay</title>
     {% else %}
     <title>Quest Quay</title>
     {% endif %}
-    
-    
+     <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='assets/css/bootstrap.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='assets/css/style.css') }}"
+    />
+    <script
+      delay
+      src="{{ url_for('static', filename='assets/js/jquery-3.7.1.min.js') }}"
+    ></script>
+        <!-- Bootstrap Javascripts -->  
+    <script
+      delay
+      src="{{ url_for('static', filename='assets/js/bootstrap.bundle.min.js') }}"
+    ></script>
   </head>
-  <body>
-{% block name %}
-    
-{% endblock %}
-
-
-{% include 'components/footer.html' %}
+  <body class="d-flex flex-column fw-normal">
+    <header>this is header</header>
+    <main class="flex-grow-1">
+      {% block content %} this is main {% endblock content %}
+    </main>
+    <footer>{% include 'components/footer.html' %}</footer>
   </body>
 </html>

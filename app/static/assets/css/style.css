@@ -1,0 +1,19 @@
+html {
+  scroll-padding-top: 70px;
+}
+[data-bs-theme="dark"] a {
+  --bs-body-color: #dee2e6;
+  --bs-highlight-color: #dee2e6;
+  color: var(--bs-body-color);
+  text-decoration: none;
+}
+[data-bs-theme="dark"] a:hover {
+  --bs-highlight-color: #dee2e6;
+  color: var(--bs-highlight-color);
+  text-decoration: underline;
+}
+
+body {
+  min-height: 100vh;
+  transition: background-color 0.3s ease-out, height 0.3s ease-out;
+}

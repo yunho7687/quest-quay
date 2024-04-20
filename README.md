@@ -21,3 +21,32 @@ Open a browser and go to URL:
 `http://<IP>:5505 `    
    
 `http://127.0.0.1:5505 `
+```
+< PROJECT ROOT >
+    ├── .flaskenv
+    ├── app
+    │  ├── __init__.py
+    │  ├── images
+    │  ├── routes.py
+    │  ├── static
+    │  │  ├── assets
+    │  │  │  ├── css
+    │  │  │  │  ├── bootstrap.min.css
+    │  │  │  │  └── style.css
+    │  │  │  ├── images
+    │  │  │  │  └── sample.png
+    │  │  │  └── js
+    │  │  │    ├── bootstrap.bundle.min.js
+    │  │  │    └── jquery-3.7.1.min.js
+    │  │  └── favicons
+    │  └── templates
+    │    ├── base.html
+    │    ├── components
+    │    │  └── footer.html
+    │    ├── index.html
+    │    └── login.html
+    ├── new.tree
+    ├── quest_quay.py
+    ├── README.md
+    └── requirements.txt
+   ```
