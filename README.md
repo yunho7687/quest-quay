@@ -21,9 +21,9 @@ Open a browser and go to URL:
 `http://<IP>:5505 `    
    
 `http://127.0.0.1:5505 `
+
 ```
-< PROJECT ROOT >
-    ├── .flaskenv
+quest-quay
     ├── app
     │  ├── __init__.py
     │  ├── images
@@ -45,6 +45,7 @@ Open a browser and go to URL:
     │    │  └── footer.html
     │    ├── index.html
     │    └── login.html
+    ├── .flaskenv
     ├── new.tree
     ├── quest_quay.py
     ├── README.md
