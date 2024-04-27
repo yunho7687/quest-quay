@@ -58,7 +58,7 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
-
+@app.route('/user/')
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -75,7 +75,6 @@ def register():
 
 
 @app.route('/user/<username>')
-@login_required
 def user(username):
     user = db.first_or_404(sa.select(User).where(User.username == username))
     posts = [
@@ -85,9 +84,9 @@ def user(username):
     return render_template('user.html', user=user, posts=posts)
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
-@login_required
+
 def edit_profile():
-    form = EditProfileForm()
+    form = EditProfileForm(current_user.username)
     if form.validate_on_submit():
         current_user.username = form.username.data
         current_user.about_me = form.about_me.data
