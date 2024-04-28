@@ -46,6 +46,7 @@ def login():
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
             return redirect(url_for('login'))
+        # register the current user as logged in
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or urlsplit(next_page).netloc != '':
@@ -58,6 +59,7 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
 
 @app.route('/user/')
 @app.route('/register', methods=['GET', 'POST'])
@@ -87,7 +89,6 @@ def user(username):
 
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
-
 def edit_profile():
     form = EditProfileForm(current_user.username)
     if form.validate_on_submit():
@@ -101,7 +102,8 @@ def edit_profile():
         form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', title='Edit Profile',
                            form=form)
-    
+
+
 @app.route('/follow/<username>', methods=['POST'])
 @login_required
 def follow(username):
