@@ -1,5 +1,9 @@
 # quest-quay
-Step 0: install python 3.4+
+Step 0: install python 3.4+    
+After clone the source code(make sure you are in the `quest-quay` directory):        
+``` bash
+cd quest-quay
+```
 ### Sept 1: Create a Python virtual environment and activate the Python interpreter from it.
 #### Mac or Linux:
 ```bash
@@ -26,7 +30,12 @@ pip3 install -r requirements.txt
 ```
 
 
-### Sept 3: 
+### Sept 3: Setup the local database and run the server
+#### Start the database
+```bash
+flask db updrade
+```
+#### Start the flask app
 ```bash
 flask run
 ```
