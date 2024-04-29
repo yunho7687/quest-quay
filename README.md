@@ -51,6 +51,3 @@ quest-quay
     ├── README.md
     └── requirements.txt
    ```
-
-
-   ####
