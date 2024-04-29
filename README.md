@@ -1,20 +1,30 @@
 # quest-quay
 Step 0: install python 3.4+
 ### Sept 1: Create a Python virtual environment and activate the Python interpreter from it.
-#### Mac or Linux
+#### Mac or Linux:
 ```bash
-python3 -m venv .venv
+python3 -m venv venv
 ```
 ```bash
-source .venv/bin/activate
+source venv/bin/activate
 ```
-#### Win
-
+#### Win PowerShell:
+```powershell
+python3 -m venv venv
+```
+use Set-Execution Policy to allow the current user to execute scripts
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
+```
+```powershell
+venv/Scripts/Activate.ps1
+```
 
 ### Sept 2: Install the requirements by `pip3`   
 ```bash
 pip3 install -r requirements.txt
 ```
+
 
 ### Sept 3: 
 ```bash
