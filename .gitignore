@@ -124,8 +124,10 @@ dmypy.json
 .pyre/
 
 # custom
+logs
 log
 .vscode/
-config.py
+
 *.tree
 *.idea
+app.db

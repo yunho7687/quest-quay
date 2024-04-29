@@ -1,8 +1,10 @@
 <div class="container">
   <p>this is a sample footer</p>
   <ul class="footer-links">
-    <li><a href="/">Privacy Policy</a></li>
-    <li><a href="/index">Terms of Service</a></li>
-    <li><a href="/index">Contact Us</a></li>
+    <li><a href="/index">Home</a></li>
+    <li><a href="{{ url_for('login') }}">Login</a></li>
+    <a href="{{ url_for('user', username=current_user.username) }}">Profile</a>
+    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+    <a href="{{ url_for('explore') }}">Explore</a>
   </ul>
 </div>
