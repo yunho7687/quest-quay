@@ -39,7 +39,7 @@ def index():
         posts = db.paginate(Post.query.order_by(Post.timestamp.desc()), page=page,
                             per_page=app.config['POSTS_PER_PAGE'], error_out=False)
     else:
-    # posts = db.session.scalars(current_user.following_posts()).all()
+        # posts = db.session.scalars(current_user.following_posts()).all()
         posts = db.paginate(current_user.following_posts(), page=page,
                             per_page=app.config['POSTS_PER_PAGE'], error_out=False)
     next_url = url_for('index', page=posts.next_num) \
@@ -204,6 +204,7 @@ def reset_password_request():
         return redirect(url_for('login'))
     return render_template('reset_password_request.html',
                            title='Reset Password', form=form)
+
 
 @app.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
