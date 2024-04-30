@@ -4,7 +4,7 @@
 >A description of the purpose of the application, explaining its design and use
  - Our application aims at improving the way **users interact with quests**, turning the simple act of **request and response** into an engaging experience.
  - With a clean and straightforward design, we prioritize a **user-friendly interface** that empowers users to navigate and utilize the platform with ease. By **enabling account creation** and **quest management** in an efficient manner, our platform excels in fostering a user-centric environment for **exchanging sideas**, **solving problems**, and building community connections. 
- <br /> 
+<br /> 
 <br />
  >Team Members   
 
@@ -14,7 +14,7 @@
 | 23895698  | Jiaxin Shi |[shijarrr](https://github.com/shijarrr) |
 | 23936657  | Jeffrey Wan |[Jeffrey86Wan](https://github.com/Jeffrey86Wan)|
 | 24122502  | Lanyizhe Deng |[woshixigou](https://github.com/woshixigou)|
- <br />
+<br />
  >A brief summary of the architecture of the application   
 
 **Frontend**   
@@ -27,7 +27,7 @@
  - Users interact with the application through a streamlined process: **creating accounts, posting requests, searching and responding to others' requests**. The backend supports these activities with robust data processing.  
   
     
- <br /> 
+<br /> 
 
 ### Let's get started!
 Step 0: install python 3.4+    
