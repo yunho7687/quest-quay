@@ -2,7 +2,7 @@
 {% import "bootstrap_wtf.html" as wtf %}
 
 {% block content %}
-{% if next_url %}
+{% if next_url or prev_url %}
 <nav aria-label="Post navigation">
   <ul class="pagination">
       <li class="page-item{% if not prev_url %} disabled{% endif %}">
@@ -21,17 +21,9 @@
 
 
 <h1>Hi, {{ current_user.username }}!</h1>
+{% include "components/alerts.html" %}
 
-{% with messages = get_flashed_messages() %} {% if messages %}
 
-  {% for message in messages %}
-  <div class="alert alert-info  alert-dismissible fade show" role="alert">{{ message }}
-
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-  {% endfor %}
-
-{% endif %} {% endwith %}
 {% if form %}
 <form action="" method="post">
   {{ form.hidden_tag() }}
