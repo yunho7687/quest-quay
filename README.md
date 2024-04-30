@@ -7,10 +7,10 @@ cd quest-quay
 ### Sept 1: Create a Python virtual environment and activate the Python interpreter from it.
 #### Mac or Linux:
 ```bash
-python3 -m venv venv
+(venv) $ python3 -m venv venv
 ```
 ```bash
-source venv/bin/activate
+(venv) $  source venv/bin/activate
 ```
 #### Win PowerShell:
 ```powershell
@@ -26,23 +26,45 @@ venv/Scripts/Activate.ps1
 
 ### Sept 2: Install the requirements by `pip3`   
 ```bash
-pip3 install -r requirements.txt
+(venv) $ pip3 install -r requirements.txt
 ```
 
 
 ### Sept 3: Setup the local database and run the server
 #### Start the database
 ```bash
-flask db updrade
+(venv) $ flask db updrade
+```
+#### Prepare for the email-related features(Mac or Linux):
+``` bash
+(venv) $ export MAIL_SERVER=localhost
+(venv) $ export MAIL_PORT=8025
+```
+#### Prepare for the email-related features(Win):
+```powershell
+set MAIL_SERVER=localhost
+set MAIL_PORT=8025
 ```
 #### Start the flask app
 ```bash
-flask run
+(venv) $ flask run
 ```
-Open a browser and go to URL:   
-`http://<IP>:5505 `    
+### Sept 4: Setup a local email server:
+Start a new terminal and make sure in the `quest-quay` directory
+```bash
+(venv) $ aiosmtpd -n -c aiosmtpd.handlers.Debugging -l localhost:8025
+```
+__Note__ after run the code above ⬆️ leave it alone. The email sending information will show in the terminal later     
+Open a browser and go to URL:  
+
+`http://<IP>:5505 `      
+
    
-`http://127.0.0.1:5505 `
+`http://127.0.0.1:5505 `    
+
+or    
+
+`http://localhost:5505/`
 
 ```
 quest-quay
