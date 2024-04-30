@@ -54,11 +54,17 @@ Start a new terminal and make sure in the `quest-quay` directory
 ```bash
 (venv) $ aiosmtpd -n -c aiosmtpd.handlers.Debugging -l localhost:8025
 ```
+__Note__ after run the code above ⬆️ leave it alone. The email sending information will show in the terminal later     
+Open a browser and go to URL:  
 
-Open a browser and go to URL:   
-`http://<IP>:5505 `    
+`http://<IP>:5505 `      
+
    
-`http://127.0.0.1:5505 `
+`http://127.0.0.1:5505 `    
+
+or    
+
+`http://localhost:5505/`
 
 ```
 quest-quay
