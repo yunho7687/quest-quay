@@ -35,9 +35,13 @@ def index():
         flash('Your post is now live!')
         return redirect(url_for('index'))
     page = request.args.get('page', 1, type=int)
-    # posts = db.session.scalars(current_user.following_posts()).all()
-    posts = db.paginate(current_user.following_posts(), page=page,
-                        per_page=app.config['POSTS_PER_PAGE'], error_out=False)
+    if current_user.is_anonymous:
+        posts = db.paginate(Post.query.order_by(Post.timestamp.desc()), page=page,
+                            per_page=app.config['POSTS_PER_PAGE'], error_out=False)
+    else:
+        # posts = db.session.scalars(current_user.following_posts()).all()
+        posts = db.paginate(current_user.following_posts(), page=page,
+                            per_page=app.config['POSTS_PER_PAGE'], error_out=False)
     next_url = url_for('index', page=posts.next_num) \
         if posts.has_next else None
     prev_url = url_for('index', page=posts.prev_num) \
@@ -91,7 +95,7 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/user/')
+@app.route('/user/', methods=['GET', 'POST'])
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -200,6 +204,7 @@ def reset_password_request():
         return redirect(url_for('login'))
     return render_template('reset_password_request.html',
                            title='Reset Password', form=form)
+
 
 @app.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
