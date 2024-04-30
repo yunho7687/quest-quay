@@ -35,9 +35,13 @@ def index():
         flash('Your post is now live!')
         return redirect(url_for('index'))
     page = request.args.get('page', 1, type=int)
+    if current_user.is_anonymous:
+        posts = db.paginate(Post.query.order_by(Post.timestamp.desc()), page=page,
+                            per_page=app.config['POSTS_PER_PAGE'], error_out=False)
+    else:
     # posts = db.session.scalars(current_user.following_posts()).all()
-    posts = db.paginate(current_user.following_posts(), page=page,
-                        per_page=app.config['POSTS_PER_PAGE'], error_out=False)
+        posts = db.paginate(current_user.following_posts(), page=page,
+                            per_page=app.config['POSTS_PER_PAGE'], error_out=False)
     next_url = url_for('index', page=posts.next_num) \
         if posts.has_next else None
     prev_url = url_for('index', page=posts.prev_num) \

@@ -18,6 +18,7 @@ mail = Mail(app)
 
 # regiser the login function as the login view function
 login.login_view = 'login'
+login.login_message = 'Please log in to access this page'
 
 if not app.debug:
     if app.config['MAIL_SERVER']:
