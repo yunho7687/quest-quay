@@ -1,4 +1,22 @@
-# quest-quay
+# *Quest-quay*
+
+### Project explained
+>A description of the purpose of the application, explaining its design and use
+ - Our application aims at improving the way **users interact with quests**, turning the simple act of **request and response** into an engaging experience.
+ - With a clean and straightforward design, we prioritize a **user-friendly interface** that empowers users to navigate and utilize the platform with ease. By **enabling account creation** and **quest management** in an efficient manner, our platform excels in fostering a user-centric environment for **exchanging sideas**, **solving problems**, and building community connections. 
+ <br /> 
+<br />
+ >Team Members   
+
+|  UWA Id   | Name  | GitHub |
+|  :----:  | :----:  | :----:  |
+| 24094053  | Chao Ding |[yunho7687](https://github.com/yunho7687) |
+| 23895698  | Jiaxin Shi |[shijarrr](https://github.com/shijarrr) |
+| 23936657  | Jeffrey Wan |[Jeffrey86Wan](https://github.com/Jeffrey86Wan)|
+| 24122502  | Lanyizhe Deng |[woshixigou](https://github.com/woshixigou)|
+ <br />
+
+### Let's get started
 Step 0: install python 3.4+    
 After clone the source code(make sure you are in the `quest-quay` directory):        
 ``` bash
@@ -99,3 +117,6 @@ quest-quay
 ├── requirements.txt
 └── tests.py
    ```
+
+
+
