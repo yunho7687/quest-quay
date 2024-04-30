@@ -15,8 +15,21 @@
 | 23936657  | Jeffrey Wan |[Jeffrey86Wan](https://github.com/Jeffrey86Wan)|
 | 24122502  | Lanyizhe Deng |[woshixigou](https://github.com/woshixigou)|
  <br />
+ >A brief summary of the architecture of the application   
 
-### Let's get started
+**Frontend**   
+ - Our application leverages **HTML, CSS**, and **Bootstrap** for a responsive user interface, with **AJAX** and **JQuery** enriching the interactivity. This combination allows for a seamless and dynamic user experience tailored to desktop and mobile devices.
+
+**Backend**   
+ - Built on **Flask**, our backend architecture is designed for efficient request handling and data management. **SQLite** is used as the database solution, integrating directly with Flask to store user data and request interactions securely.
+
+**Workflow**  
+ - Users interact with the application through a streamlined process: **creating accounts, posting requests, searching and responding to others' requests**. The backend supports these activities with robust data processing.  
+  
+    
+ <br /> 
+
+### Let's get started!
 Step 0: install python 3.4+    
 After clone the source code(make sure you are in the `quest-quay` directory):        
 ``` bash
