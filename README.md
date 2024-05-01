@@ -88,9 +88,13 @@ Start a new terminal and make sure in the `quest-quay` directory
 __Note__ after run the code above ⬆️ leave it alone. The email sending information will show in the terminal later once you send the reset password request     
 
 ### Sept 5: Populate some mock user and post data:
-1. Start a new terminal and make sure in the `quest-quay` directory
-2. (venv) $ `sqlite3 app.db`
-3. sqlite> `.read mock_data.sql`
+Start a new terminal and make sure in the `quest-quay` directory
+ ``` bash
+ (venv) $ sqlite3 app.db
+ ```
+ ``` bash
+sqlite> .read mock_data.sql
+```
 
 
 ### Sept 6: Go to the URL and login as a test user:  
