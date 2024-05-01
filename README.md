@@ -64,7 +64,7 @@ venv/Scripts/Activate.ps1
 ### Sept 3: Setup the local database and run the server
 #### Start the database
 ```bash
-(venv) $ flask db updrade
+(venv) $ flask db upgrade
 ```
 #### Prepare for the email-related features(Mac or Linux):
 ``` bash
