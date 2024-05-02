@@ -64,7 +64,7 @@ venv/Scripts/Activate.ps1
 ### Sept 3: Setup the local database and run the server
 #### Start the database
 ```bash
-(venv) $ flask db updrade
+(venv) $ flask db upgrade
 ```
 #### Prepare for the email-related features(Mac or Linux):
 ``` bash
@@ -88,9 +88,13 @@ Start a new terminal and make sure in the `quest-quay` directory
 __Note__ after run the code above ⬆️ leave it alone. The email sending information will show in the terminal later once you send the reset password request     
 
 ### Sept 5: Populate some mock user and post data:
-1. Start a new terminal and make sure in the `quest-quay` directory
-2. (venv) $ `sqlite3 app.db`
-3. sqlite> `.read mock_data.sql`
+Start a new terminal and make sure in the `quest-quay` directory
+ ``` bash
+ (venv) $ sqlite3 app.db
+ ```
+ ``` bash
+sqlite> .read mock_data.sql
+```
 
 
 ### Sept 6: Go to the URL and login as a test user:  
@@ -112,52 +116,62 @@ you can use the `test user` directly:
 ```
 quest-quay
 ├── .flaskenv
+├── .github
+│  └── ISSUE_TEMPLATE
+│    ├── bug_report.md
+│    └── feature_request.md
+├── .gitignore
 ├── app
 │  ├── __init__.py
-│  ├── errors.py
-│  ├── forms.py
-│  ├── images
+│  ├── auth
+│  │  ├── __init__.py
+│  │  ├── email.py
+│  │  ├── forms.py
+│  │  └── routes.py
+│  ├── email.py
+│  ├── errors
+│  │  ├── __init__.py
+│  │  └── handlers.py
+│  ├── main
+│  │  ├── __init__.py
+│  │  ├── forms.py
+│  │  └── routes.py
 │  ├── models.py
-│  ├── routes.py
 │  ├── static
-│  │  ├── assets
-│  │  │  ├── css
-│  │  │  │  ├── bootstrap.min.css
-│  │  │  │  └── style.css
-│  │  │  ├── images
-│  │  │  │  └── sample.png
-│  │  │  └── js
-│  │  │    ├── bootstrap.bundle.min.js
-│  │  │    └── jquery-3.7.1.min.js
-│  │  └── favicons
+│  │  └── assets
+│  │    ├── css
+│  │    │  ├── bootstrap.min.css
+│  │    │  └── style.css
+│  │    ├── images
+│  │    │  └── sample.png
+│  │    └── js
+│  │      ├── bootstrap.bundle.min.js
+│  │      └── jquery-3.7.1.min.js
 │  └── templates
-│    ├── 404.html
-│    ├── 500.html
+│    ├── auth
+│    │  ├── login.html
+│    │  ├── register.html
+│    │  ├── reset_password_request.html
+│    │  └── reset_password.html
 │    ├── base.html
+│    ├── bootstrap_wtf.html
 │    ├── components
+│    │  ├── alerts.html
 │    │  ├── footer.html
 │    │  └── post.html
 │    ├── edit_profile.html
+│    ├── email
+│    │  ├── reset_password.html
+│    │  └── reset_password.txt
+│    ├── errors
+│    │  ├── 404.html
+│    │  └── 500.html
 │    ├── index.html
-│    ├── login.html
-│    ├── register.html
 │    └── user.html
 ├── app.db
 ├── config.py
-├── logs
-│  └── quest_quay.log
 ├── migrations
-│  ├── alembic.ini
-│  ├── env.py
-│  ├── README
-│  ├── script.py.mako
-│  └── versions
-│    ├── 1901c21c2e8a_posts_table.py
-│    ├── 1e948b416ed8_users_table.py
-│    ├── 6dda4d5aba19_d.py
-│    ├── 8b2cb65c8247_add_followers_table.py
-│    ├── af487df4c8ed_new_fields_in_user_model.py
-│    └── ec3ab6d8be08_dd.py
+├── mock_data.sql
 ├── new.tree
 ├── quest_quay.py
 ├── README.md
