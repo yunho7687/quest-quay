@@ -27,6 +27,12 @@ followers = sa.Table(
               primary_key=True)
 )
 
+search = sa.Table(
+    'search',
+    db.metadata
+)
+
+
 
 class User(UserMixin, db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
