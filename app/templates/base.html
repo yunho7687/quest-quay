@@ -1,34 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    {% if title %}
-    <title>{{ title }} - Quest Quay</title>
-    {% else %}
-    <title>Quest Quay</title>
-    {% endif %}
-    <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='assets/css/bootstrap.min.css') }}"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename = 'assets/css/style.css') }}"
-    />
-    <script src="{{ url_for('static', filename='assets/js/jquery-3.7.1.min.js') }}"></script>
-    <!-- Bootstrap Javascripts -->
-    <script src="{{ url_for('static', filename='assets/js/bootstrap.bundle.min.js') }}"></script>
-  </head>
-  <body class="d-flex flex-column fw-normal">
-    <header>this is header</header>
-    <hr />
-    <main class="flex-grow-1 container">
-      {% block content %} {% endblock content %}
-    </main>
-    <footer>{% include 'components/footer.html' %}</footer>
-    {{ moment.include_moment() }}
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  {% if title %}
+  <title>{{ title }} - Quest Quay</title>
+  {% else %}
+  <title>Quest Quay</title>
+  {% endif %}
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/bootstrap.min.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'assets/css/style.css') }}" />
+  <script src="{{ url_for('static', filename='assets/js/jquery-3.7.1.min.js') }}"></script>
+  <!-- Bootstrap Javascripts -->
+  <script src="{{ url_for('static', filename='assets/js/bootstrap.bundle.min.js') }}"></script>
+</head>
+
+<body class="d-flex flex-column fw-normal">
+  <header>this is header</header>
+  <hr />
+  <main class="flex-grow-1 container">
+    {% block content %} {% endblock content %}
+  </main>
+  <footer>{% include 'components/footer.html' %}</footer>
+  {{ moment.include_moment() }}
+
+  <script>
+    function initialize_popovers() {
+      const popups = document.getElementsByClassName('user-popup');
+      for (let i = 0; i < popups.length; i++) {
+        const popover = new bootstrap.Popover(popups[i], {
+          content: 'Loading...',
+          trigger: 'hover focus',
+          placement: 'right',
+          html: true,
+          sanitize: false,
+          delay: { show: 500, hide: 0 },
+          container: popups[i],
+          customClass: 'd-inline',
+        });
+        popups[i].addEventListener('show.bs.popover', async (e) => {
+          if (e.target.popupLoaded) {
+            return;
+          }
+          const response = await fetch('/user/' + e.target.innerText.trim() + '/popup');
+          const data = await response.text();
+          const popover = bootstrap.Popover.getInstance(e.target);
+          if (popover && data) {
+            e.target.popupLoaded = true;
+            popover.setContent({ '.popover-body': data });
+            flask_moment_render_all();
+          }
+        });
+      }
+    }
+    document.addEventListener('DOMContentLoaded', initialize_popovers);
+  </script>
+</body>
+
 </html>

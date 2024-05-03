@@ -1,5 +1,5 @@
 
-from flask import render_template, flash, redirect, url_for,current_app, request
+from flask import render_template, flash, redirect, url_for, current_app, request
 from flask_login import current_user, login_required
 import sqlalchemy as sa
 from app import db
@@ -60,6 +60,7 @@ def explore():
 
     return render_template("index.html", title='Explore', posts=posts.items,
                            next_url=next_url, prev_url=prev_url)
+
 
 @bp.route('/user/')
 @bp.route('/user/<username>')
@@ -140,3 +141,11 @@ def unfollow(username):
         return redirect(url_for('main.user', username=username))
     else:
         return redirect(url_for('main.index'))
+
+
+@bp.route('/user/<username>/popup')
+@login_required
+def user_popup(username):
+    user = db.first_or_404(sa.select(User).where(User.username == username))
+    form = EmptyForm()
+    return render_template('user_popup.html', user=user, form=form)
