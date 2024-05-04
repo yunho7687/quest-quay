@@ -139,8 +139,9 @@ class Post(db.Model):
 
     @staticmethod
     def search_posts(query):
-        search_query = f'{query}*'
-        
+        search_query = f'body:{query}*'
+        # search_query = f'title:{query}* OR body:{query}*'  # search in title and body
+
         # Direct SQL execution through SQLAlchemy session, now using text() for raw SQL
         sql = text(
             "SELECT post_id FROM post_search WHERE post_search MATCH :query")
