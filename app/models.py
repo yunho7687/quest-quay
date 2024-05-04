@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 from typing import Optional
 import sqlalchemy as sa
+from sqlalchemy import text
 import sqlalchemy.orm as so
 from flask import current_app
 
@@ -25,6 +26,11 @@ followers = sa.Table(
               primary_key=True),
     sa.Column('followed_id', sa.Integer, sa.ForeignKey('user.id'),
               primary_key=True)
+)
+
+search = sa.Table(
+    'search',
+    db.metadata
 )
 
 
@@ -130,3 +136,20 @@ class Post(db.Model):
 
     def __repr__(self):
         return '<Post {}>'.format(self.body)
+
+    @staticmethod
+    def search_posts(query):
+        search_query = f'body:{query}*'
+        # search_query = f'title:{query}* OR body:{query}*'  # search in title and body
+
+        # Direct SQL execution through SQLAlchemy session, now using text() for raw SQL
+        sql = text(
+            "SELECT post_id FROM post_search WHERE post_search MATCH :query")
+
+        result = db.session.execute(sql, {'query': search_query})
+
+        post_ids = [row[0] for row in result.fetchall()]
+        # row is a tuple, rowp[0] is the first element of the tuple
+
+        # a list of Post objects
+        return Post.query.filter(Post.id.in_(post_ids)).all()
