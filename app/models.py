@@ -17,6 +17,8 @@ import jwt
 # flask db downgrade ⬅️ revert the migration
 
 # user_loader is provided by Flask-Login
+
+
 @login.user_loader
 def load_user(id):
     return db.session.get(User, int(id))
