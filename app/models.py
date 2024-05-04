@@ -12,6 +12,9 @@ from hashlib import md5
 from time import time
 import jwt
 
+# flask db migrate -m "some message" ⬅️ create a migration
+# flask db upgrade ⬅️ apply the migration
+# flask db downgrade ⬅️ revert the migration
 
 # user_loader is provided by Flask-Login
 @login.user_loader
