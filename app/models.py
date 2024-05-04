@@ -151,4 +151,5 @@ class Post(db.Model):
         post_ids = [row[0] for row in result.fetchall()]
         # row is a tuple, rowp[0] is the first element of the tuple
 
+        # a list of Post objects
         return Post.query.filter(Post.id.in_(post_ids)).all()
