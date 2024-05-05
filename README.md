@@ -35,7 +35,7 @@ After clone the source code(make sure you are in the `quest-quay` directory):
 ``` bash
 cd quest-quay
 ```
-### Sept 1: Create a Python virtual environment and activate the Python interpreter from it.
+### Step 1: Create a Python virtual environment and activate the Python interpreter from it.
 #### Mac or Linux:
 ```bash
 (venv) $ python3 -m venv venv
@@ -55,13 +55,13 @@ Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
 venv/Scripts/Activate.ps1
 ```
 
-### Sept 2: Install the requirements by `pip3`   
+### Step 2: Install the requirements by `pip3`   
 ```bash
 (venv) $ pip3 install -r requirements.txt
 ```
 
 
-### Sept 3: Setup the local database and run the server
+### Step 3: Setup the local database and run the server
 #### Start the database
 ```bash
 (venv) $ flask db upgrade
@@ -80,14 +80,14 @@ set MAIL_PORT=8025
 ```bash
 (venv) $ flask run
 ```
-### Sept 4: Setup a local email server:
+### Step 4: Setup a local email server:
 Start a new terminal and make sure in the `quest-quay` directory
 ```bash
 (venv) $ aiosmtpd -n -c aiosmtpd.handlers.Debugging -l localhost:8025
 ```
 __Note__ after run the code above ⬆️ leave it alone. The email sending information will show in the terminal later once you send the reset password request     
 
-### Sept 5: Populate some mock user and post data:
+### Step 5: Populate some mock user and post data:
 Start a new terminal and make sure in the `quest-quay` directory
  ``` bash
  (venv) $ sqlite3 app.db
@@ -97,7 +97,7 @@ sqlite> .read mock_data.sql
 ```
 
 
-### Sept 6: Go to the URL and login as a test user:  
+### Step 6: Go to the URL and login as a test user:  
 
 `http://<IP>:5505 `      
 
