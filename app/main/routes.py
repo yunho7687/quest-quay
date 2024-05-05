@@ -17,6 +17,13 @@ def setTime():
 
 
 @bp.route('/', methods=['GET', 'POST'])
+def intro():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+    return render_template('intro.html')
+
+
+
 @bp.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():

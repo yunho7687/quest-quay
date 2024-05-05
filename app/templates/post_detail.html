@@ -1,9 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>{{post.title}}</h2>
+<div>
+    <h3>{{post.title}}</h3>
+    <span class="text-secondary fst-italic ">
+        posted {{ moment(post.timestamp).fromNow() }}
+    </span> 
+    <p>{{post.body}}</p>
 
-this is the post detail page for{{ post.id}} <br>
+</div>
 
-{{post.body}}
+
+
 {% endblock %}

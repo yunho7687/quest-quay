@@ -2,8 +2,11 @@
 {% import "bootstrap_wtf.html" as wtf %}
 
 {% block content %}
-    <h1>Register</h1>
-    <form action="" method="post">
+
+<div class="container mx-0 mx-md-5 d-flex flex-column align-items-center" >
+    {% include "components/alerts.html" %}
+    <form  action="" method="post" class="mx-2 col-9 col-md-5 col-lg-4 " novalidate>
+        <h1 class="" >Register</h1>
         {{ form.hidden_tag() }}
         {{ wtf.form_field(form.email) }}
         {{ wtf.form_field(form.username) }}
@@ -11,4 +14,6 @@
         {{ wtf.form_field(form.password2) }}
         {{ wtf.form_field(form.submit) }}
     </form>
+</div>
+
 {% endblock %}

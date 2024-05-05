@@ -1,25 +1,33 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 {% import "bootstrap_wtf.html" as wtf %}
 {% block content %}
 
-{% include "components/alerts.html" %}
 
-<h1>Sign In</h1>
-<form action="" method="post" novalidate>
-  {{ form.hidden_tag() }}
-  {{ wtf.form_field(form.username) }}
-  {{ wtf.form_field(form.password) }}
-  {{ wtf.form_field(form.remember_me) }}
-  {{ wtf.form_field(form.submit) }}
-</form>
-<p>New User? <a href="{{ url_for('auth.register') }}">Click to Register!</a></p>
-<p>
-  Forgot Your Password?
-  <a href="{{ url_for('auth.reset_password_request') }}">Click to Reset It</a>
-</p>
-<p class="delete-in-production">
-  test user account: <br>
-  <span>Username:</span> agile <br>
-  <span>Password:</span> admin
-</p>
+<div class="container mx-0  d-flex flex-column align-items-center">
+  {% include "components/alerts.html" %}
+  <form action="" method="post" class="mx-2 col-11 col-md-5 col-lg-4 " novalidate>
+    <h1>Sign In</h1>
+    {{ form.hidden_tag() }}
+    {{ wtf.form_field(form.username) }}
+    {{ wtf.form_field(form.password) }}
+    {{ wtf.form_field(form.remember_me) }}
+    {{ wtf.form_field(form.submit) }}
+    <a class="btn btn-outline-success   mb-3 ms-3 "  href="{{ url_for('auth.register') }}">New? Register!</a>
+
+    <p >
+      <a class="text-secondary text-decoration-none " href="{{ url_for('auth.reset_password_request') }}"> Forgot My Password</a>
+    </p>
+  </form>
+  <div class="mx-2 col-9 col-md-5 col-lg-4  ">
+
+    <p class="delete-in-production   fw-lighter text-body-secondary">
+      test user account: <br>
+      <span>Username:</span> agile <br>
+      <span>Password:</span> admin
+    </p>
+  </div>
+
+</div>
+
+
 {% endblock %}
