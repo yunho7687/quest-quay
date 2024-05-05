@@ -17,7 +17,12 @@ body {
   min-height: 100vh;
   transition: background-color 0.3s ease-out, height 0.3s ease-out;
 }
-
+header {
+  height: 58px;
+}
+footer {
+  min-height: 10rem;
+}
 textarea {
   width: 100%;
 }
@@ -38,4 +43,10 @@ textarea {
 	-webkit-line-clamp: 3;   
 	-webkit-box-orient: vertical;     
 	overflow: hidden; 
+}
+
+#side-bar{
+  position: sticky;
+  height: 78px;
+  top: 90px;
 }
