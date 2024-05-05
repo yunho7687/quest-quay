@@ -12,15 +12,15 @@
     {{ wtf.form_field(form.password) }}
     {{ wtf.form_field(form.remember_me) }}
     {{ wtf.form_field(form.submit) }}
-    <a class="btn btn-primary text-decoration-none text-light mb-3 col-4 ms-3 "  href="{{ url_for('auth.register') }}">Register</a>
+    <a class="btn btn-outline-success   mb-3 ms-3 "  href="{{ url_for('auth.register') }}">New? Register!</a>
 
     <p >
-      <a class="text-secondary fs-6" href="{{ url_for('auth.reset_password_request') }}"> Forgot My Password</a>
+      <a class="text-secondary text-decoration-none " href="{{ url_for('auth.reset_password_request') }}"> Forgot My Password</a>
     </p>
   </form>
   <div class="mx-2 col-9 col-md-5 col-lg-4  ">
 
-    <p class="delete-in-production fw-lighter text-body-secondary">
+    <p class="delete-in-production   fw-lighter text-body-secondary">
       test user account: <br>
       <span>Username:</span> agile <br>
       <span>Password:</span> admin
