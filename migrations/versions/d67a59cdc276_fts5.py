@@ -20,7 +20,8 @@ def upgrade():
     op.execute(
         """
         CREATE VIRTUAL TABLE IF NOT EXISTS post_search USING fts5(
-            post_id,
+            post_id,,
+            title,
             body
         );
         """
@@ -30,8 +31,8 @@ def upgrade():
         """
         CREATE TRIGGER post_after_insert AFTER INSERT ON Post
         BEGIN
-            INSERT INTO post_search(post_id,body)
-            VALUES (new.id,new.body);
+            INSERT INTO post_search(post_id,title,body)
+            VALUES (new.id,new.title,new.body);
         END;
         """
     )
@@ -40,7 +41,7 @@ def upgrade():
         CREATE TRIGGER post_after_update AFTER UPDATE ON Post
         BEGIN
             UPDATE post_search
-            SET body = new.body
+            SET body = new.body,title = new.title
             WHERE post_id = new.id;
         END;
         """

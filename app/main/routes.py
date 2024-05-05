@@ -1,5 +1,5 @@
 
-from flask import render_template, flash, redirect, url_for, current_app, request
+from flask import render_template, flash, redirect, url_for, current_app, request, jsonify
 from flask_login import current_user, login_required
 import sqlalchemy as sa
 from app import db
@@ -66,7 +66,7 @@ def explore():
 @bp.route('/user/<username>')
 @login_required
 def user(username):
-    # print('username:', username)
+
     user = db.first_or_404(sa.select(User).where(User.username == username))
     page = request.args.get('page', 1, type=int)
     # query = sa.select(Post).join(Post.author).where(
@@ -149,3 +149,18 @@ def user_popup(username):
     user = db.first_or_404(sa.select(User).where(User.username == username))
     form = EmptyForm()
     return render_template('user_popup.html', user=user, form=form)
+
+
+@bp.route('/test')
+def test():
+    return jsonify({'message': 'Hello, World!'})
+
+
+@bp.route('/post/<post_id>', methods=['GET', 'POST'])
+def post(post_id):
+    post = db.first_or_404(sa.select(Post).where(Post.id == post_id))
+    return render_template('post_detail.html',  post=post)
+
+# @bp.route('/post/<post_id>/popup')
+# def test(post_id):
+#     return jsonify({'message': 'Hello, World!', 'post_id': post_id})

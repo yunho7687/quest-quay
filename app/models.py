@@ -12,8 +12,13 @@ from hashlib import md5
 from time import time
 import jwt
 
+# flask db migrate -m "some message" ⬅️ create a migration
+# flask db upgrade ⬅️ apply the migration
+# flask db downgrade ⬅️ revert the migration
 
 # user_loader is provided by Flask-Login
+
+
 @login.user_loader
 def load_user(id):
     return db.session.get(User, int(id))
@@ -26,11 +31,6 @@ followers = sa.Table(
               primary_key=True),
     sa.Column('followed_id', sa.Integer, sa.ForeignKey('user.id'),
               primary_key=True)
-)
-
-search = sa.Table(
-    'search',
-    db.metadata
 )
 
 
@@ -125,9 +125,15 @@ class User(UserMixin, db.Model):
 
 class Post(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
-    body: so.Mapped[str] = so.mapped_column(sa.String(140))
+
+    title: so.Mapped[str] = so.mapped_column(
+        sa.String(50), default='Untitled')
+
+    body: so.Mapped[str] = so.mapped_column(sa.String(500))
+
     timestamp: so.Mapped[datetime] = so.mapped_column(
         index=True, default=lambda: datetime.now(timezone.utc))
+
     user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id),
                                                index=True)
 
