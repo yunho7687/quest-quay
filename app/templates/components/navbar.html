@@ -1,30 +1,45 @@
-<nav class="navbar navbar-expand-md  fixed-top bg-body-tertiary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{{ url_for('main.index') }}">QuestQuay</a>
-        <div class="d-flex ">
-
-            {% include "components/theme_toggler.html" %}
-            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
-
-
-        <div class="navbar-collapse collapse" id="navbarCollapse">
-            <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url_for('main.index') }}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('main.explore') }}">Explore</a>
-                </li>
-            </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-        </div>
+{% import "bootstrap_wtf.html" as wtf %}
+<nav class="navbar navbar-expand-md fixed-top bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{{ url_for('main.index') }}">QuestQuay</a>
+    <div class="d-flex">
+      {% include "components/theme_toggler.html" %}
+      <button
+        class="navbar-toggler collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse"
+        aria-controls="navbarCollapse"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
     </div>
+
+    <div class="navbar-collapse collapse" id="navbarCollapse">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            aria-current="page"
+            href="{{ url_for('main.index') }}"
+            >Home</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('main.explore') }}">Explore</a>
+        </li>
+      </ul>
+      <form
+        method="GET"
+        action="{{ url_for('main.post_search') }}"
+        class="d-flex"
+        role="search"
+      >
+        {{ g.search_form.csrf_token }} {{ g.search_form.q(class="form-control
+        me-2") }} {{ g.search_form.submit(class="btn btn-outline-success") }}
+      </form>
+    </div>
+  </div>
 </nav>

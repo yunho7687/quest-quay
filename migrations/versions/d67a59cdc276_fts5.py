@@ -17,10 +17,19 @@ depends_on = None
 
 
 def upgrade():
+    
+    with op.batch_alter_table('post', schema=None) as batch_op:
+        batch_op.add_column(sa.Column('title', sa.String(length=50), nullable=False))
+        batch_op.alter_column('body',
+               existing_type=sa.VARCHAR(length=140),
+               type_=sa.String(length=500),
+               existing_nullable=False)
+
+    
     op.execute(
         """
         CREATE VIRTUAL TABLE IF NOT EXISTS post_search USING fts5(
-            post_id,,
+            post_id,
             title,
             body
         );

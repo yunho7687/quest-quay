@@ -24,6 +24,7 @@ class EditProfileForm(FlaskForm):
             if user is not None:
                 raise ValidationError('Please use a different username.')
 
+
 class EmptyForm(FlaskForm):
     submit = SubmitField('Submit')
 
@@ -32,3 +33,9 @@ class PostForm(FlaskForm):
     post = TextAreaField('Say something', validators=[
         DataRequired(), Length(min=1, max=140)])
     submit = SubmitField('Submit')
+
+
+class SearchForm(FlaskForm):
+    q = StringField('Search', validators=[DataRequired(), Length(
+        min=1, max=140)], render_kw={"placeholder": "Title, contnet"})
+    submit=SubmitField('Search')

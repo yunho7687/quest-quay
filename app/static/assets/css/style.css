@@ -26,27 +26,39 @@ footer {
 textarea {
   width: 100%;
 }
-.user-name{
+.user-name {
   text-decoration: none;
-
 }
 
-.post-title{
+.post-title {
   text-decoration: none;
-	display: -webkit-box;   
-	-webkit-line-clamp: 2;   
-	-webkit-box-orient: vertical;     
-	overflow: hidden; 
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
-.post-body{
-	display: -webkit-box;   
-	-webkit-line-clamp: 3;   
-	-webkit-box-orient: vertical;     
-	overflow: hidden; 
+.post-body {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-#side-bar{
+#side-bar {
   position: sticky;
   height: 78px;
   top: 90px;
+}
+.table tr {
+  display: flex;
+  width: 100%;
+}
+.table :nth-child(2) {
+  flex: 1;
+}
+header nav form .form-label {
+  display: none;
+}
+header nav form div {
+  margin-bottom: 0 !important;
 }

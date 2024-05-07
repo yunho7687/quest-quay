@@ -145,7 +145,7 @@ class Post(db.Model):
 
     @staticmethod
     def search_posts(query):
-        search_query = f'body:{query}*'
+        search_query = f'title:{query}* OR body:{query}*'
         # search_query = f'title:{query}* OR body:{query}*'  # search in title and body
 
         # Direct SQL execution through SQLAlchemy session, now using text() for raw SQL
@@ -158,4 +158,5 @@ class Post(db.Model):
         # row is a tuple, rowp[0] is the first element of the tuple
 
         # a list of Post objects
-        return Post.query.filter(Post.id.in_(post_ids)).all()
+        return Post.query.filter(Post.id.in_(post_ids)).order_by(Post.timestamp.desc())
+        

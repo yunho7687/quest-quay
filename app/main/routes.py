@@ -1,12 +1,14 @@
 
 from flask import render_template, flash, redirect, url_for, current_app, request, jsonify
+from flask import g
 from flask_login import current_user, login_required
 import sqlalchemy as sa
 from app import db
 from app.models import User, Post
 from datetime import datetime, timezone
-from app.main.forms import EditProfileForm, EmptyForm, PostForm
+from app.main.forms import EditProfileForm, EmptyForm, PostForm, SearchForm
 from app.main import bp
+from urllib.parse import unquote
 
 
 @bp.before_request
@@ -14,6 +16,7 @@ def setTime():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.now(timezone.utc)
         db.session.commit()
+        g.search_form = SearchForm(request.args)
 
 
 @bp.route('/', methods=['GET', 'POST'])
@@ -21,7 +24,6 @@ def intro():
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
     return render_template('intro.html')
-
 
 
 @bp.route('/index', methods=['GET', 'POST'])
@@ -63,7 +65,6 @@ def explore():
         if posts.has_next else None
     prev_url = url_for('main.explore', page=posts.prev_num) \
         if posts.has_prev else None
-    print("next_url", next_url)
 
     return render_template("index.html", title='Explore', posts=posts.items,
                            next_url=next_url, prev_url=prev_url)
@@ -163,10 +164,29 @@ def test():
     return jsonify({'message': 'Hello, World!'})
 
 
-@bp.route('/post/<post_id>', methods=['GET', 'POST'])
+@bp.route('/post/<post_id>', methods=['GET'])
 def post(post_id):
     post = db.first_or_404(sa.select(Post).where(Post.id == post_id))
     return render_template('post_detail.html',  post=post)
+
+
+@bp.route('/post/search')
+@login_required
+def post_search():
+    if not g.search_form.validate():
+        print(g.search_form.errors)
+        return redirect(url_for('main.explore'))
+    page = request.args.get('page', 1, type=int)
+    query = request.args.get('q', '', type=str)
+    posts = db.paginate(Post.search_posts(query), page=page,
+                        per_page=current_app.config['POSTS_PER_PAGE'], error_out=False)
+    next_url = url_for('main.post_search',q=g.search_form.q.data, page=posts.next_num) \
+        if posts.has_next else None
+    prev_url = url_for('main.post_search',q=g.search_form.q.data, page=posts.prev_num) \
+        if posts.has_prev else None
+    # return render_template('post_detail.html',  post=post)
+
+    return render_template('post_search.html', query=query, posts=posts.items, next_url=next_url, prev_url=prev_url)
 
 # @bp.route('/post/<post_id>/popup')
 # def test(post_id):
