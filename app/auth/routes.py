@@ -1,5 +1,5 @@
 
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request,g
 from flask_login import current_user, login_user, logout_user
 import sqlalchemy as sa
 from app import db
@@ -8,10 +8,12 @@ from urllib.parse import urlsplit
 from app.auth import bp
 from app.auth.forms import ResetPasswordRequestForm, ResetPasswordForm, LoginForm, RegistrationForm
 from app.auth.email import send_password_reset_email
+from app.main.forms import SearchForm
 
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
+    g.search_form = SearchForm()
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
     form = LoginForm()

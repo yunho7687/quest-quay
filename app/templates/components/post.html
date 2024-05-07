@@ -1,22 +1,27 @@
 <table class="post-table table">
-    <tbody>
-        <tr>
-            <td >
-                <a href="{{ url_for('main.user', username=post.author.username) }}">
-                    <img class="rounded-circle" src="{{ post.author.avatar(36) }}" />
-                </a>
-            </td>
-            <td>
-                <a class="user-name user-popup badge text-bg-secondary" href="{{ url_for('main.user', username=post.author.username) }}">
-                    {{ post.author.username }}</a> <br>
-                posted {{ moment(post.timestamp).fromNow() }}:
-                <br>
-                <a href="{{ url_for('main.post', post_id=post.id) }}" class="">
-                    <h4 class="post-title"> {{ post.title }}</h4>
-                </a>
+  <tbody>
+    <tr>
+      <td>
+        <a href="{{ url_for('main.user', username=post.author.username) }}">
+          <img class="rounded-circle" src="{{ post.author.avatar(36) }}" />
+        </a>
+      </td>
+      <td>
+        <a
+          class="user-name user-popup badge text-bg-secondary"
+          href="{{ url_for('main.user', username=post.author.username) }}"
+        >
+          {{ post.author.username }}</a
+        >
+        <br />
+        posted {{ moment(post.timestamp).fromNow() }}:
+        <br />
+        <a href="{{ url_for('main.post', post_id=post.id) }}" class="">
+          <h4 class="post-title">{{ post.title }}</h4>
+        </a>
 
-                <p class="post-body">{{ post.body }}</p>
-            </td>
-        </tr>
-    </tbody>
+        <p class="post-body">{{ post.body }}</p>
+      </td>
+    </tr>
+  </tbody>
 </table>
