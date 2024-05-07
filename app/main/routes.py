@@ -13,10 +13,11 @@ from urllib.parse import unquote
 
 @bp.before_request
 def setTime():
+    g.search_form = SearchForm(request.args)
     if current_user.is_authenticated:
         current_user.last_seen = datetime.now(timezone.utc)
         db.session.commit()
-        g.search_form = SearchForm(request.args)
+        
 
 
 @bp.route('/', methods=['GET', 'POST'])
