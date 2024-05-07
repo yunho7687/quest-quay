@@ -93,6 +93,8 @@ Start a new terminal and make sure in the `quest-quay` directory
  (venv) $ sqlite3 app.db
  ```
  ``` bash
+sqlite> PRAGMA trusted_schema=1;      
+
 sqlite> .read mock_data.sql
 ```
 
