@@ -14,7 +14,10 @@
           {{ post.author.username }}</a
         >
         <br />
-        posted {{ moment(post.timestamp).fromNow() }}:
+        <span class="fst-italic text-secondary">
+          posted {{ moment(post.timestamp).fromNow() }}
+        </span>
+      
         <br />
         <a href="{{ url_for('main.post', post_id=post.id) }}" class="">
           <h4 class="post-title">{{ post.title }}</h4>
