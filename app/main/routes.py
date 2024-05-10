@@ -8,7 +8,7 @@ from app.models import User, Post
 from datetime import datetime, timezone
 from app.main.forms import EditProfileForm, EmptyForm, PostForm, SearchForm
 from app.main import bp
-from urllib.parse import unquote
+
 
 
 @bp.before_request
