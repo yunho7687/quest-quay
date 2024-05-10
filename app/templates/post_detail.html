@@ -3,7 +3,14 @@
 {% block content %}
 <div class="w-100">
     <h3>{{post.title}}</h3>
+    <a
+    class="user-name user-popup badge text-bg-secondary"
+    href="{{ url_for('main.user', username=post.author.username) }}"
+  >
+    {{ post.author.username }}</a
+  >
     <span class="text-secondary fst-italic ">
+    
         posted {{ moment(post.timestamp).fromNow() }}
     </span> 
     <p>{{post.body}}</p>
