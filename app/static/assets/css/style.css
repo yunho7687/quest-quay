@@ -62,3 +62,6 @@ header nav form .form-label {
 header nav form div {
   margin-bottom: 0 !important;
 }
+.form-control{
+  border: 1px solid #838586;
+}
