@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "bootstrap_wtf.html" as wtf %}
 
 {% block content %}
 <div class="w-100">
@@ -14,6 +15,23 @@
         posted {{ moment(post.timestamp).fromNow() }}
     </span> 
     <p>{{post.body}}</p>
+
+    {% if comments %} 
+    {% for comment in comments %}
+    
+    {% include "components/comment.html" %}
+    {% endfor %}
+  
+    {% endif %}
+    <hr/>
+    <form action="" method="post">
+      {{form.csrf_token()}}
+
+      {{wtf.form_field(form.comment)}}
+      {{wtf.form_field(form.submit)}}
+    </form>
+
+
 
 </div>
 

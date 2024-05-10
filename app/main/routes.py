@@ -4,9 +4,9 @@ from flask import g
 from flask_login import current_user, login_required
 import sqlalchemy as sa
 from app import db
-from app.models import User, Post
+from app.models import User, Post,Comment
 from datetime import datetime, timezone
-from app.main.forms import EditProfileForm, EmptyForm, PostForm, SearchForm
+from app.main.forms import EditProfileForm, EmptyForm, PostForm, SearchForm,CommentForm
 from app.main import bp
 
 
@@ -164,11 +164,27 @@ def user_popup(username):
 def test():
     return jsonify({'message': 'Hello, World!'})
 
-
-@bp.route('/post/<post_id>', methods=['GET'])
+# post detail page
+@bp.route('/post/<post_id>', methods=['GET', 'POST'])
 def post(post_id):
+    form=CommentForm()
     post = db.first_or_404(sa.select(Post).where(Post.id == post_id))
-    return render_template('post_detail.html',  post=post)
+    query = post.comments.select().order_by(Comment.timestamp.desc())
+    page = request.args.get('page', 1, type=int)
+    comments = db.paginate(query, page=page,
+                        per_page=current_app.config['POSTS_PER_PAGE'], error_out=False)
+    next_url = url_for('main.explore', page=comments.next_num) \
+        if comments.has_next else None
+    prev_url = url_for('main.explore', page=comments.prev_num) \
+        if comments.has_prev else None
+    if form.validate_on_submit():
+        comment = Comment(body=form.comment.data, post=post, author=current_user)
+        db.session.add(comment)
+        db.session.commit()
+        flash('Your comment is now live!')
+        return redirect(url_for('main.post', post_id=post_id))
+    # if form.validate_on_submit():
+    return render_template('post_detail.html',  post=post, form=form,comments=comments.items, next_url=next_url, prev_url=prev_url)
 
 
 @bp.route('/post/search')

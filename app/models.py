@@ -49,6 +49,8 @@ class User(UserMixin, db.Model):
     last_seen: so.Mapped[Optional[datetime]] = so.mapped_column(
         default=lambda: datetime.now(timezone.utc))
     # adding relationship won't lead to database migrations
+    comments: so.WriteOnlyMapped['Comment'] = so.relationship(back_populates='author')
+
     following: so.WriteOnlyMapped['User'] = so.relationship(
         secondary=followers, primaryjoin=(followers.c.follower_id == id),
         secondaryjoin=(followers.c.followed_id == id),
@@ -139,6 +141,8 @@ class Post(db.Model):
 
     author: so.Mapped[User] = so.relationship(back_populates='posts')
     # back_populates: reference the name of the relationship attribute on the other side
+    
+    comments: so.WriteOnlyMapped['Comment'] = so.relationship(back_populates='post')
 
     def __repr__(self):
         return '<Post {}>'.format(self.body)
@@ -160,3 +164,14 @@ class Post(db.Model):
         # a list of Post objects
         return Post.query.filter(Post.id.in_(post_ids)).order_by(Post.timestamp.desc())
         
+class Comment(db.Model):
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    body: so.Mapped[str] = so.mapped_column(sa.String(140))
+    timestamp: so.Mapped[datetime] = so.mapped_column(
+        index=True, default=lambda: datetime.now(timezone.utc))
+    post_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(Post.id))
+    user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id))
+    
+    post: so.Mapped[Post] = so.relationship(back_populates='comments')
+    
+    author: so.Mapped[User] = so.relationship(back_populates='comments')
