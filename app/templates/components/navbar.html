@@ -52,7 +52,7 @@
         role="search"
       >
       {% if g.search_form %}
-        {{ g.search_form.csrf_token }} {{ g.search_form.q(class="form-control me-2") }} {{ g.search_form.submit(class="btn btn-outline-success") }}
+        {{ g.search_form.csrf_token(id="search-csrf") }} {{ g.search_form.q(class="form-control me-2",id="search-input") }} {{ g.search_form.submit(class="btn btn-outline-success",id="search-submit") }}
       {% endif %}
       </form>
     </div>
