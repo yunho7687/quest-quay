@@ -28,6 +28,7 @@
     {% if form %}
     <form action="" method="post">
         {{ form.hidden_tag() }}
+        {{ wtf.form_field(form.title) }}
         {{ wtf.form_field(form.post) }}
         {{ wtf.form_field(form.submit) }}
     </form>

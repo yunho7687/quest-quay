@@ -30,7 +30,9 @@ class EmptyForm(FlaskForm):
 
 
 class PostForm(FlaskForm):
-    post = TextAreaField('Say something', validators=[
+    title=StringField('Title',validators=[
+        DataRequired(), Length(min=1, max=50)])
+    post = TextAreaField('Quest', validators=[
         DataRequired(), Length(min=1, max=140)])
     submit = SubmitField('Submit')
 
