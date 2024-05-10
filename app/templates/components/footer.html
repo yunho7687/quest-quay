@@ -1,10 +1,6 @@
-<div class="container">
-  <p>this is a sample footer</p>
-  <ul class="footer-links">
-    <li><a href="/index">Home</a></li>
-    <li><a href="{{ url_for('auth.login') }}">Login</a></li>
-    <a href="{{ url_for('main.user', username=current_user.username) }}">Profile</a>
-    <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
-    <a href="{{ url_for('main.explore') }}">Explore</a>
+
+  <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+    <li class="nav-item"><a href="/" class="nav-link px-2 text-body-secondary">Home</a></li>
+    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About Us</a></li>
   </ul>
-</div>
+  <p class="text-center text-body-secondary">CITS5505</p>
