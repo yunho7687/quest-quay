@@ -1,0 +1,27 @@
+{% import "bootstrap_wtf.html" as wtf %}
+<div class="modal fade" id="compose-post" tabindex="-1" aria-labelledby="exampleModalLabel"  aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-md-down  ">
+      <div class="modal-content ">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Creat a Quest</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        
+        <div class="modal-body">
+
+                    <form action="/index" method="post">
+                        {{ g.post_form.hidden_tag() }}
+                        {{ wtf.form_field(g.post_form.title) }}
+                        {{ wtf.form_field(g.post_form.post) }}
+                        <div class="d-none ">  {{ wtf.form_field(g.post_form.submit) }}</div>
+                      
+                    </form>
+                
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button id="submit-post" type="button" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>

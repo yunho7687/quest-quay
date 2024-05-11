@@ -24,15 +24,7 @@
     <h1>Hi, {{ current_user.username }}!</h1>
     {% include "components/alerts.html" %}
     
-    
-    {% if form %}
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
-        {{ wtf.form_field(form.title) }}
-        {{ wtf.form_field(form.post) }}
-        {{ wtf.form_field(form.submit) }}
-    </form>
-    {% endif %}
+
     {% for post in posts %}
     {% include "components/post.html" %}
     {% endfor %}

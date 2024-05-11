@@ -8,11 +8,13 @@
       </td>
       <td>
         <a
-          class="user-name user-popup badge text-bg-secondary"
+          class="user-name user-popup badge text-bg-secondary me-3 "
           href="{{ url_for('main.user', username=post.author.username) }}"
         >
           {{ post.author.username }}</a
         >
+
+        {% include 'components/tag.html' with context %}
         <br />
         <span class="fst-italic text-secondary">
           posted {{ moment(post.timestamp).fromNow() }}

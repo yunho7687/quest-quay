@@ -65,3 +65,40 @@ header nav form div {
 .form-control{
   border: 1px solid #838586;
 }
+
+.tags{
+  padding: 7px;
+}
+
+.blur-effect {
+  backdrop-filter: blur(5px); 
+  background-color: rgba(141, 141, 141, 0.1); 
+
+}
+.modal-content{
+  backdrop-filter: blur(40px); 
+  background-color: rgba(244, 244, 244, 0.2); 
+}
+[data-bs-theme="dark"] .modal-content{
+  background-color: rgba(0,0, 0, 0.5); 
+}
+.form-control{
+  background-color:  rgba(243, 243, 243, 0.8); ;
+}
+.form-control:focus{
+  background-color:  rgba(244, 244, 244, 0.8); ;
+}
+
+[data-bs-theme="dark"] .form-control{
+  background-color:  rgba(50, 50, 50, 0.8); ;
+}
+[data-bs-theme="dark"] .form-control:focus{
+  background-color:  rgba(50, 50, 50, 0.8); ;
+}
+.navbar{
+  backdrop-filter: blur(10px); 
+  background-color: rgba(255, 255, 255, 0.5); 
+}
+[data-bs-theme="dark"] .navbar{
+  background-color: rgba(63, 63, 63, 0.5); 
+}

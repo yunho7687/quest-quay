@@ -13,7 +13,8 @@ from app.main import bp
 
 @bp.before_request
 def setTime():
-    g.search_form = SearchForm(request.args)
+    g.search_form = SearchForm()
+    g.post_form = PostForm()
     if current_user.is_authenticated:
         current_user.last_seen = datetime.now(timezone.utc)
         db.session.commit()
@@ -190,9 +191,7 @@ def post(post_id):
 @bp.route('/post/search')
 @login_required
 def post_search():
-    if not g.search_form.validate():
-        print(g.search_form.errors)
-        return redirect(url_for('main.explore'))
+
     page = request.args.get('page', 1, type=int)
     query = request.args.get('q', '', type=str)
     posts = db.paginate(Post.search_posts(query), page=page,
@@ -204,6 +203,12 @@ def post_search():
     # return render_template('post_detail.html',  post=post)
 
     return render_template('post_search.html', query=query, posts=posts.items, next_url=next_url, prev_url=prev_url)
+
+
+@bp.route('/post/about_us')
+def about_us():
+    return render_template('about_us.html')
+    
 
 # @bp.route('/post/<post_id>/popup')
 # def test(post_id):
