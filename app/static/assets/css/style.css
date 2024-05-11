@@ -17,10 +17,10 @@ body {
   min-height: 100vh;
   transition: background-color 0.3s ease-out, height 0.3s ease-out;
 }
-[data-bs-theme="light"] body {
-  background-color: #f2f2f2;
-  /* background-color: #343a40; */
+a{
+  color: #000000;
 }
+
 header {
   height: 58px;
 }
@@ -80,18 +80,19 @@ header nav form div {
 }
 .modal-content {
   backdrop-filter: blur(40px);
-  background-color: rgba(244, 244, 244, 0.2);
+  background-color: rgba(255, 255, 255, 0.5);
 }
 [data-bs-theme="dark"] .modal-content {
   background-color: rgba(0, 0, 0, 0.5);
 }
 .form-control,.card {
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  border:0;
+  box-shadow: 0 0.2rem 0.3rem rgba(0, 0, 0, 0.15);
   background-color: rgba(243, 243, 243, 0.5);
 }
 .form-control,.card:focus {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  background-color: rgba(244, 244, 244, 0.5) !important;
+  background-color: rgba(244, 244, 244, 0.5) ;
 }
 
 [data-bs-theme="dark"] .form-control {
@@ -179,12 +180,12 @@ table:hover {
   /* https://codepen.io/kahootsjill/pen/abQvbJj */
   background-image: radial-gradient(
       47% 33% at 82% 2%,
-      #1382a654 20%,
-      #1382a600 100%
+      #9fc1cd54 20%,
+      #c0e5f100 100%
     ),
-    radial-gradient(21% 38% at 69% 45%, #c1e0ea66 0%, #e2f6c300 100%),
-    radial-gradient(21% 36% at 17% 62%, #77ffffcc 1%, #d9c1d800 100%),
-    linear-gradient(342deg, #adb5f9 11%, #6eb0fc 58%);
+    radial-gradient(21% 38% at 69% 45%, #c1e0ea66 0%, #bdc7ae00 100%),
+    radial-gradient(21% 36% at 17% 62%, #c9f2f2cc 1%, #d5b9d400 100%),
+    linear-gradient(342deg, #adb5f9 11%, #bdd2ea 58%);
   -webkit-animation: gradient 80s linear infinite;
   animation: gradient 80s linear infinite;
 }
