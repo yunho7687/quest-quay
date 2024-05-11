@@ -3,6 +3,7 @@
 
 {% block content %}
 <div class="w-100">
+  {% include "components/alerts.html" %}
     <h3>{{post.title}}</h3>
     <a
     class="user-name user-popup badge text-bg-secondary"
@@ -25,7 +26,7 @@
     {% endif %}
     <hr/>
     <form action="" method="post">
-      {{form.csrf_token()}}
+      {{form.csrf_token(id="csrf-post")}}
 
       {{wtf.form_field(form.comment)}}
       {{wtf.form_field(form.submit)}}

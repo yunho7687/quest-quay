@@ -1,15 +1,28 @@
-<div class="d-flex w-100 align-items-center justify-content-center   text-body-secondary pt-3">
-    {% if comment %}
-    <a href="{{ url_for('main.user', username=comment.author.username)}}">
-        <img class="rounded-circle" src="{{comment.author.avatar(36)}}">
-      </a>
-    {% endif %}
-    <p class="mb-0    flex-grow-1 ">
-    {% if comment %}
-    {{comment.author.username}}
-    posted:{{comment.body}}
-    {% endif %}
-  
-</p>
+<div class="">
+  {% if comment %}
+    <div class="card  mx-auto  ">
+      <div class="card-body">
+        <div class="d-flex justify-content-between ">
+          <a class="text-decoration-none " href="{{ url_for('main.user', username=comment.author.username)}}">
+            <img class="rounded-circle" src="{{comment.author.avatar(36)}}">
+            <span class="card-subtitle ms-2  mb-2 text-body-secondary">{{comment.author.username}}</span>
+          </a>
+          <span class="text-secondary fst-italic small"> 
+          posted  {{moment(comment.timestamp).fromNow() }}
+          </span>
+        </div>
 
+        <p class="card-text mt-1 mx-1 ">{{comment.body}}</p>
+        {% if comment.author == current_user  %}
+
+        <div class="text-end ">
+          <a href="#" class="card-link">Edit</a>
+          <a href="#" class="card-link">Delete</a>
+        </div>
+      </div>
+    </div>
+
+        {% endif %}
+
+  {% endif %}
 </div>
