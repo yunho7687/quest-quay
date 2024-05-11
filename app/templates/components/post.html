@@ -1,32 +1,32 @@
-<table class="post-table table">
-  <tbody>
-    <tr>
-      <td>
-        <a href="{{ url_for('main.user', username=post.author.username) }}">
-          <img class="rounded-circle" src="{{ post.author.avatar(36) }}" />
-        </a>
-      </td>
-      <td>
-        <a
-          class="user-name user-popup badge text-bg-secondary me-3 "
-          href="{{ url_for('main.user', username=post.author.username) }}"
-        >
-          {{ post.author.username }}</a
-        >
 
-        {% include 'components/tag.html' with context %}
-        <br />
-        <span class="fst-italic text-secondary">
-          posted {{ moment(post.timestamp).fromNow() }}
-        </span>
-      
-        <br />
+
+<div class=" card mb-3 border-0 card-bg rounded-4  shadow  " >
+  <div class="row g-0 ">
+
+    <div class="col-md-8  ">
+      <div class="card-body ">
         <a href="{{ url_for('main.post', post_id=post.id) }}" class="">
-          <h4 class="post-title">{{ post.title }}</h4>
+        <h5 class="card-title post-title display-5 ">{{ post.title }}</h5>
         </a>
+        <div class="ms-1"> 
+          {% include 'components/tag.html' with context %}
+        </div>
 
-        <p class="post-body">{{ post.body }}</p>
-      </td>
-    </tr>
-  </tbody>
-</table>
+        <a
+        class="user-name user-popup my-2   me-3 d-inline-flex   align-items-center "
+        href="{{ url_for('main.user', username=post.author.username) }}"
+      >
+      <img class="rounded-circle me-2 " src="{{ post.author.avatar(26) }}" />
+        <span class="text-success  ">{{ post.author.username }}</span> 
+        </a
+      >
+        <p class="card-text post-body">{{ post.body }}</p>
+        <p class="card-text">posted {{ moment(post.timestamp).fromNow() }}</p>
+      </div>
+    </div>
+    <div class="col-md-4 ">
+      <img  src="https://www.uwa.edu.au/-/media/project/uwa/uwa/uwa-corporate/rich-text/sis_illus-swimmingswan_cmyk.png" class="d-none d-md-inline  post-image rounded-end-4 object-fit-cover   " alt="">
+    </div>
+
+  </div>
+</div>

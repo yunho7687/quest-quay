@@ -10,8 +10,5 @@ $(document).ready(function () {
   navCreatePostBtn.click(function(e){
     e.preventDefault()
      $(".modal-backdrop.fade.show").addClass("blur-effect opacity-100");
-    console.log(modelBackground);
-
-    
   })
 });

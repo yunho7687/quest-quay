@@ -1,26 +1,29 @@
 {% import "bootstrap_wtf.html" as wtf %}
 <div class="modal fade" id="compose-post" tabindex="-1" aria-labelledby="exampleModalLabel"  aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen-md-down  ">
-      <div class="modal-content ">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Creat a Quest</h1>
+    <div class="modal-dialog modal-fullscreen-md-down ">
+      <div class="modal-content rounded--0  rounded-md-4 shadow">
+        <div class="modal-header border-0 ">
+          <h1 class="modal-title display-3  display-md-5 " id="exampleModalLabel">Creat a Quest</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         
-        <div class="modal-body">
+        <div class="modal-body p-4 ">
+            {% if g.post_form %}
+            
+            <form action="/index" method="post">
+                {{ g.post_form.csrf_token(class="form-control me-2",id="csrf-post") }}
+                {{ wtf.form_field(g.post_form.title) }}
+                {{ wtf.form_field(g.post_form.post) }}
+                <div class="d-none ">  {{ g.post_form.submit(id="submit-post") }}</div>
+              
+            </form>
+        
+            {% endif %}
 
-                    <form action="/index" method="post">
-                        {{ g.post_form.hidden_tag() }}
-                        {{ wtf.form_field(g.post_form.title) }}
-                        {{ wtf.form_field(g.post_form.post) }}
-                        <div class="d-none ">  {{ wtf.form_field(g.post_form.submit) }}</div>
-                      
-                    </form>
-                
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button id="submit-post" type="button" class="btn btn-primary">Submit</button>
+        <div class="modal-footer border-0 ">
+
+          <button id="submit-post" type="button" class="btn btn-primary mb-5 ">Submit</button>
         </div>
       </div>
     </div>
