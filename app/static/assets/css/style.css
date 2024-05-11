@@ -90,7 +90,7 @@ header nav form div {
   box-shadow: 0 0.2rem 0.3rem rgba(0, 0, 0, 0.15);
   background-color: rgba(243, 243, 243, 0.5);
 }
-.form-control,.card:focus {
+.form-control,.card:focus,#comment,#search-input {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   background-color: rgba(244, 244, 244, 0.5) ;
 }
@@ -186,8 +186,8 @@ table:hover {
     radial-gradient(21% 38% at 69% 45%, #c1e0ea66 0%, #bdc7ae00 100%),
     radial-gradient(21% 36% at 17% 62%, #c9f2f2cc 1%, #d5b9d400 100%),
     linear-gradient(342deg, #adb5f9 11%, #bdd2ea 58%);
-  -webkit-animation: gradient 80s linear infinite;
-  animation: gradient 80s linear infinite;
+  -webkit-animation: gradient 20s linear infinite;
+  animation: gradient 20s linear infinite;
 }
 [data-bs-theme="dark"] .gradient-bg {
   /* https://codepen.io/kahootsjill/pen/abQvbJj */
@@ -196,8 +196,8 @@ table:hover {
       #1382a654 20%,
       #1382a600 100%
     ),
-    radial-gradient(21% 38% at 69% 45%, #1382a666 0%, #1382a600 100%),
-    radial-gradient(21% 36% at 17% 62%, #276363cc 1%, #00b8b800 100%),
+    radial-gradient(21% 38% at 69% 45%, #25482c66 0%, #1382a600 100%),
+    radial-gradient(21% 36% at 17% 62%, #2e2448cc 1%, #00b8b800 100%),
     linear-gradient(342deg, #354a43 11%, #0d1d2f 58%);
   -webkit-animation: gradient 200s linear infinite;
   animation: gradient 200s linear infinite;
@@ -208,6 +208,9 @@ table:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+[data-bs-theme="dark"] .post-image{
+  filter: brightness(0.7);
 }
 .card-bg {
   backdrop-filter: blur(10px);
