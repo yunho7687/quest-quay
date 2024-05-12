@@ -6,7 +6,7 @@ import sqlalchemy as sa
 from app import db
 from app.models import User, Post, Comment
 from datetime import datetime, timezone
-from app.main.forms import EditProfileForm, EmptyForm, PostForm, SearchForm, CommentForm, EmptyFormLikeComment
+from app.main.forms import EditProfileForm, EmptyForm, PostForm, SearchForm, CommentForm
 from app.main import bp
 
 
@@ -170,7 +170,8 @@ def test():
 @bp.route('/post/<post_id>', methods=['GET', 'POST'])
 def post(post_id):
     form = CommentForm()
-    form_like_comment = EmptyFormLikeComment()
+    form_like_comment = EmptyForm()
+    form_lile_post = EmptyForm()
     post = db.first_or_404(sa.select(Post).where(Post.id == post_id))
     query = post.comments.select().order_by(Comment.timestamp.desc())
     page = request.args.get('page', 1, type=int)
@@ -188,7 +189,7 @@ def post(post_id):
         flash('Your comment is now live!')
         return redirect(url_for('main.post', post_id=post_id))
     # if form.validate_on_submit():
-    return render_template('post_detail.html',  post=post, form=form, comments=comments.items, next_url=next_url, prev_url=prev_url, form_like_comment=form_like_comment)
+    return render_template('post_detail.html',  post=post, form=form, comments=comments.items, next_url=next_url, prev_url=prev_url, form_like_comment=form_like_comment,form_lile_post=form_lile_post)
 
 
 @bp.route('/post/search')
@@ -220,7 +221,7 @@ def about_us():
 @bp.route('/like_comment/<comment_id>', methods=['POST'])
 @login_required
 def like_comment(comment_id):
-    form = EmptyFormLikeComment()
+    form = EmptyForm()
     if form.validate_on_submit():
         comment = db.first_or_404(
             sa.select(Comment).where(Comment.id == comment_id))
@@ -239,7 +240,7 @@ def like_comment(comment_id):
 @bp.route('/unlike_comment/<comment_id>', methods=['POST'])
 @login_required
 def unlike_comment(comment_id):
-    form = EmptyFormLikeComment()
+    form = EmptyForm()
     if form.validate_on_submit():
         comment = db.first_or_404(
             sa.select(Comment).where(Comment.id == comment_id))
@@ -256,7 +257,7 @@ def unlike_comment(comment_id):
 @bp.route('/save_comment/<comment_id>', methods=['POST'])
 @login_required
 def save_comment(comment_id):
-    form = EmptyFormLikeComment()
+    form = EmptyForm()
     if form.validate_on_submit():
         comment = db.first_or_404(
             sa.select(Comment).where(Comment.id == comment_id))
@@ -274,7 +275,7 @@ def save_comment(comment_id):
 @bp.route('/unsave_comment/<comment_id>', methods=['POST'])
 @login_required
 def unsave_comment(comment_id):
-    form = EmptyFormLikeComment()
+    form = EmptyForm()
     if form.validate_on_submit():
         comment = db.first_or_404(
             sa.select(Comment).where(Comment.id == comment_id))
@@ -296,7 +297,7 @@ def unsave_comment(comment_id):
 @bp.route('/like_post/<post_id>', methods=['POST'])
 @login_required
 def like_post(post_id):
-    form = EmptyFormLikeComment()
+    form = EmptyForm()
     if form.validate_on_submit():
         post = db.first_or_404(sa.select(Post).where(Post.id == post_id))
         if current_user.is_liking_post(post):
@@ -312,7 +313,7 @@ def like_post(post_id):
 @bp.route('/unlike_post/<post_id>', methods=['POST'])
 @login_required
 def unlike_post(post_id):
-    form = EmptyFormLikeComment()
+    form = EmptyForm()
     if form.validate_on_submit():
         post = db.first_or_404(sa.select(Post).where(Post.id == post_id))
         if not current_user.is_liking_post(post):
@@ -329,7 +330,7 @@ def unlike_post(post_id):
 @bp.route('/save_post/<post_id>', methods=['POST'])
 @login_required
 def save_post(post_id):
-    form = EmptyFormLikeComment()
+    form = EmptyForm()
     if form.validate_on_submit():
         post = db.first_or_404(sa.select(Post).where(Post.id == post_id))
         if not current_user.is_saving_post(post):
@@ -346,7 +347,7 @@ def save_post(post_id):
 @bp.route('/unsave_post/<post_id>', methods=['POST'])
 @login_required
 def unsave_post(post_id):
-    form = EmptyFormLikeComment()
+    form = EmptyForm()
     if form.validate_on_submit():
         post = db.first_or_404(sa.select(Post).where(Post.id == post_id))
         if not current_user.is_saving_post(post):

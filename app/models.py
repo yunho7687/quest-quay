@@ -164,6 +164,9 @@ class User(UserMixin, db.Model):
     def is_liking_comment(self, comment):
         query = self.liked_comments.select().where(Comment.id == comment.id)
         return db.session.scalar(query) is not None
+    def is_liking_post(self, post):
+        query = self.liked_posts.select().where(Post.id == post.id)
+        return db.session.scalar(query) is not None
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
