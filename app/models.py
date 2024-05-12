@@ -265,6 +265,11 @@ class Post(db.Model):
         secondaryjoin="saved_posts.c.user_id == user.c.id",
         back_populates='saved_posts')
     
+    def like_count(self):
+        query = sa.select(sa.func.count()).select_from(
+            self.liked_by.select().subquery())
+        return db.session.scalar(query)
+    
 
 
     def __repr__(self):
@@ -312,3 +317,8 @@ class Comment(db.Model):
             saved_comments.c.comment_id == id),
         secondaryjoin="saved_comments.c.user_id == user.c.id",
         back_populates='saved_comments')
+    
+    def like_count(self):
+        query = sa.select(sa.func.count()).select_from(
+            self.liked_by.select().subquery())
+        return db.session.scalar(query)
