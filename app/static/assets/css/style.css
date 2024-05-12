@@ -85,23 +85,33 @@ header nav form div {
   background-color: rgba(255, 255, 255, 0.5);
 }
 [data-bs-theme="dark"] .modal-content {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(49, 49, 49, 0.1);
 }
 .form-control,.card {
   border:0;
   box-shadow: 0 0.2rem 0.3rem rgba(0, 0, 0, 0.15);
-  background-color: rgba(243, 243, 243, 0.5);
+  background-color: rgba(243, 243, 243, 0.2);
 }
-.form-control,.card:focus,#comment,#search-input {
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  background-color: rgba(244, 244, 244, 0.5) ;
+.form-control:focus,.card:focus,#comment,#search-input {
+
+  background-color: rgba(244, 244, 244, 0.1) ;
 }
 
-[data-bs-theme="dark"] .form-control {
+
+[data-bs-theme="dark"] .form-control,.card{
+  background-color: rgba(243, 243, 243, 0.05);
+}
+[data-bs-theme="dark"] #search-input{
   background-color: rgba(50, 50, 50, 0.3);
 }
-[data-bs-theme="dark"] .form-control:focus {
+[data-bs-theme="dark"] #comment{
   background-color: rgba(50, 50, 50, 0.3);
+}
+[data-bs-theme="dark"] .form-control {
+  background-color: rgba(118, 118, 118, 0.1);
+}
+[data-bs-theme="dark"] .form-control:focus {
+  background-color: rgba(50, 50, 50, 0.1);
 }
 
 .btn.btn-primary{
