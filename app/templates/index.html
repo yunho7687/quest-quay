@@ -3,6 +3,14 @@
 
 {% block content %}
 <div class="col-11  col-md-8">
+    <h1 class="display-3 mb-4 ">Hi, {{ current_user.username }}!</h1>
+
+    {% include "components/alerts.html" %}
+
+    {% for post in posts %}
+    {% include "components/post.html" %}
+    {% endfor %}
+
     {% if next_url or prev_url %}
     <nav aria-label="Post navigation">
         <ul class="pagination">
@@ -19,24 +27,6 @@
         </ul>
     </nav>
     {% endif %}
-    
-    
-    <h1>Hi, {{ current_user.username }}!</h1>
-    {% include "components/alerts.html" %}
-    
-    
-    {% if form %}
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
-        {{ wtf.form_field(form.title) }}
-        {{ wtf.form_field(form.post) }}
-        {{ wtf.form_field(form.submit) }}
-    </form>
-    {% endif %}
-    {% for post in posts %}
-    {% include "components/post.html" %}
-    {% endfor %}
-
 </div>
 {% include 'components/sidebar.html' %}
 {% endblock %}

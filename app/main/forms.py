@@ -41,3 +41,7 @@ class SearchForm(FlaskForm):
     q = StringField('Search', validators=[DataRequired(), Length(
         min=1, max=140)], render_kw={"placeholder": "Title, contnet"})
     submit=SubmitField('Search')
+
+class CommentForm(FlaskForm):
+    comment = TextAreaField('Comment:', validators=[DataRequired(), Length(min=1, max=140)])
+    submit = SubmitField('Submit',id='submit-comment')

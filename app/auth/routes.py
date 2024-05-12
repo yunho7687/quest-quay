@@ -8,11 +8,13 @@ from urllib.parse import urlsplit
 from app.auth import bp
 from app.auth.forms import ResetPasswordRequestForm, ResetPasswordForm, LoginForm, RegistrationForm
 from app.auth.email import send_password_reset_email
-from app.main.forms import SearchForm
+from app.main.forms import SearchForm,PostForm
 
 @bp.before_request
 def before_request():
     g.search_form = SearchForm()
+    g.post_form = PostForm()
+    
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:

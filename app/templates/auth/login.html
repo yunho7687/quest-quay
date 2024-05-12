@@ -1,27 +1,27 @@
 {% extends "base.html" %} {% import "bootstrap_wtf.html" as wtf %} {% block
 content %}
 
-<div class="container mx-0 d-flex flex-column align-items-center">
+<div class="container mx-0 d-flex flex-column align-items-center mt-5 ">
   {% include "components/alerts.html" %}
   <form
     action=""
     method="post"
-    class="mx-2 col-11 col-md-5 col-lg-4"
+    class="mx-2 col-11 col-md-5 col-lg-4 fw-medium "
     novalidate
   >
-    <h1>Sign In</h1>
+    <h1 class="display-3 ">Sign In</h1>
     {{ form.hidden_tag() }} {{ wtf.form_field(form.username) }} {{
     wtf.form_field(form.password) }} {{ wtf.form_field(form.remember_me) }} {{
     wtf.form_field(form.submit) }}
     <a
-      class="btn btn-outline-success mb-3 ms-3"
+      class="btn btn-success rounded-pill px-4 text-decoration-none  mb-3 ms-3"
       href="{{ url_for('auth.register') }}"
       >New? Register!</a
     >
 
     <p>
       <a
-        class="text-secondary text-decoration-none"
+        class="small badge text-danger   text-decoration-none"
         href="{{ url_for('auth.reset_password_request') }}"
       >
         Forgot My Password</a

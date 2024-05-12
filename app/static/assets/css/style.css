@@ -17,6 +17,10 @@ body {
   min-height: 100vh;
   transition: background-color 0.3s ease-out, height 0.3s ease-out;
 }
+a{
+  color: #000000;
+}
+
 header {
   height: 58px;
 }
@@ -33,13 +37,13 @@ textarea {
 .post-title {
   text-decoration: none;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 .post-body {
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -61,4 +65,159 @@ header nav form .form-label {
 }
 header nav form div {
   margin-bottom: 0 !important;
+}
+.form-control {
+  border: 1px solid #838586;
+}
+
+.tags {
+  padding: 7px;
+}
+
+.blur-effect {
+  backdrop-filter: blur(20px);
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.modal-content {
+  backdrop-filter: blur(40px);
+  background-color: rgba(255, 255, 255, 0.5);
+}
+[data-bs-theme="dark"] .modal-content {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.form-control,.card {
+  border:0;
+  box-shadow: 0 0.2rem 0.3rem rgba(0, 0, 0, 0.15);
+  background-color: rgba(243, 243, 243, 0.5);
+}
+.form-control,.card:focus,#comment,#search-input {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  background-color: rgba(244, 244, 244, 0.5) ;
+}
+
+[data-bs-theme="dark"] .form-control {
+  background-color: rgba(50, 50, 50, 0.3);
+}
+[data-bs-theme="dark"] .form-control:focus {
+  background-color: rgba(50, 50, 50, 0.3);
+}
+
+.btn.btn-primary{
+  border-radius:50rem;
+  padding: 6px 24px;
+  border: 0;
+  background-color: #712cf9;
+}
+.btn.btn-primary:hover{
+  border: 0;
+  background-color: #935cff;
+}
+
+[data-bs-theme="dark"] .btn.btn-primary:hover{
+  background-color: #8142ff;
+}
+.btn.btn-success{
+  color: #0d1d2f;
+  border: 0;
+  background-color: #f9ffba;
+}
+
+[data-bs-theme="dark"] .btn.btn-success{
+  color: #ffffff;
+  background-color: #989339;
+}
+
+.alert{
+  color: #000000;
+  border:0;
+  backdrop-filter: blur(30px);
+  background-color: rgba(163, 255, 246, 0.6);
+}
+[data-bs-theme="dark"] .alert{
+  color: #e8e8e8;
+  border:0;
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 242, 255, 0.3);
+}
+.navbar {
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.5);
+}
+[data-bs-theme="dark"] .navbar {
+  background-color: rgba(63, 63, 63, 0.5);
+}
+.post-title {
+  text-decoration-line: none;
+}
+.post-title:hover {
+  text-decoration-line: underline;
+}
+table {
+  transition: all 0.1s ease-in-out;
+}
+table:hover {
+  transform: translateY(-1px);
+}
+
+@keyframes gradient {
+  /* https://codepen.io/P1N2O/pen/pyBNzX */
+  0%,
+  100% {
+    background-position: center;
+    background-size: 100% 100%;
+  }
+  33% {
+    background-position: bottom left;
+    background-size: 300% 300%;
+  }
+  66% {
+    background-position: top left;
+    background-size: 200% 200%;
+  }
+}
+
+.gradient-bg {
+  /* https://codepen.io/kahootsjill/pen/abQvbJj */
+  background-image: radial-gradient(
+      47% 33% at 82% 2%,
+      #9fc1cd54 20%,
+      #c0e5f100 100%
+    ),
+    radial-gradient(21% 38% at 69% 45%, #c1e0ea66 0%, #bdc7ae00 100%),
+    radial-gradient(21% 36% at 17% 62%, #c9f2f2cc 1%, #d5b9d400 100%),
+    linear-gradient(342deg, #adb5f9 11%, #bdd2ea 58%);
+  -webkit-animation: gradient 20s linear infinite;
+  animation: gradient 20s linear infinite;
+}
+[data-bs-theme="dark"] .gradient-bg {
+  /* https://codepen.io/kahootsjill/pen/abQvbJj */
+  background-image: radial-gradient(
+      47% 33% at 82% 2%,
+      #1382a654 20%,
+      #1382a600 100%
+    ),
+    radial-gradient(21% 38% at 69% 45%, #25482c66 0%, #1382a600 100%),
+    radial-gradient(21% 36% at 17% 62%, #2e2448cc 1%, #00b8b800 100%),
+    linear-gradient(342deg, #354a43 11%, #0d1d2f 58%);
+  -webkit-animation: gradient 200s linear infinite;
+  animation: gradient 200s linear infinite;
+}
+
+.post-image {
+  max-height: 280px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+[data-bs-theme="dark"] .post-image{
+  filter: brightness(0.7);
+}
+.card-bg {
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.224);
+}
+
+[data-bs-theme="dark"] .card-bg {
+  backdrop-filter: blur(10px);
+  background-color: rgba(77, 77, 77, 0.2);
 }

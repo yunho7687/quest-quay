@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="col-12">
+<div class="col-11">
     {% if next_url or prev_url %}
     <nav aria-label="Post navigation">
         <ul class="pagination">
@@ -18,7 +18,7 @@
         </ul>
     </nav>
     {% endif %}
-    <h1>Search Results</h1>
+    <h1  class="display-3 ">Search Results</h1>
     {% for post in posts %}
     {% include "components/post.html" %}
     {% endfor %}
