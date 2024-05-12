@@ -8,6 +8,10 @@
             <span class=" badge  text-bg-secondary ms-2  mb-2 ">{{comment.author.username}}</span>
           </a>
 
+<form class="like-comment-form" action="{{ url_for('main.like_comment', comment_id=comment.id) }}" method="post">
+  {{form_like_comment.hidden_tag() }}
+  {{ form_like_comment.like_comment(class_='btn btn-outline-primary btn-sm') }}
+</form>
 
           <span class="text-secondary fst-italic small"
           

@@ -92,11 +92,14 @@ header nav form div {
   box-shadow: 0 0.2rem 0.3rem rgba(0, 0, 0, 0.15);
   background-color: rgba(243, 243, 243, 0.2);
 }
-.form-control:focus,.card:focus,#comment,#search-input {
+.form-control:focus,.card:focus,#comment {
 
   background-color: rgba(244, 244, 244, 0.1) ;
 }
+#search-input{
+  background-color: rgba(244, 244, 244, 0.2) ;
 
+}
 
 [data-bs-theme="dark"] .form-control,.card{
   background-color: rgba(243, 243, 243, 0.05);
