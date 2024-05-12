@@ -76,10 +76,12 @@ header nav form div {
 
 .blur-effect {
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px); 
   background-color: rgba(0, 0, 0, 0.2);
 }
 .modal-content {
   backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px); 
   background-color: rgba(255, 255, 255, 0.5);
 }
 [data-bs-theme="dark"] .modal-content {
@@ -131,16 +133,19 @@ header nav form div {
   color: #000000;
   border:0;
   backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px); 
   background-color: rgba(163, 255, 246, 0.6);
 }
 [data-bs-theme="dark"] .alert{
   color: #e8e8e8;
   border:0;
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); 
   background-color: rgba(0, 242, 255, 0.3);
 }
 .navbar {
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); 
   background-color: rgba(255, 255, 255, 0.5);
 }
 [data-bs-theme="dark"] .navbar {
@@ -213,7 +218,8 @@ table:hover {
   filter: brightness(0.7);
 }
 .card-bg {
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(100px);
+  -webkit-backdrop-filter: blur(100px); 
   background-color: rgba(255, 255, 255, 0.224);
 }
 
