@@ -239,6 +239,31 @@ table:hover {
 }
 
 [data-bs-theme="dark"] .card-bg {
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(100px);
+  -webkit-backdrop-filter: blur(100px); 
   background-color: rgba(77, 77, 77, 0.2);
+}
+.like-save-btn{
+  height: 20px;
+  width: 20px;
+  margin-right: 10px;
+}
+.post-like-save-btn{
+  height: 22px;
+  width: 22px;
+  margin-right: 8px;
+}
+
+.delete-btn{
+  font-size: 0.875em;
+}
+.dropdown-menu.dropdown-menu-end.show{
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(100px); 
+  background-color: rgba(223, 223, 223, 0.2);
+  z-index: 100;
+}
+.dropdown-menu.dropdown-menu-end.show li{
+
+
 }

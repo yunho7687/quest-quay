@@ -118,6 +118,7 @@ class User(UserMixin, db.Model):
         secondary=saved_posts, primaryjoin=(saved_posts.c.user_id == id),
         secondaryjoin="saved_posts.c.post_id == post.c.id",
         back_populates='saved_by')
+    
 
     def like_comments(self, comment):
         if not self.is_liking_comment(comment):
@@ -129,33 +130,27 @@ class User(UserMixin, db.Model):
 
     def save_comments(self, comment):
         if not self.is_saving_comment(comment):
-            self.liked_comments.add(comment)
+            self.saved_comments.add(comment)
 
     def unsave_comments(self, comment):
         if self.is_saving_comment(comment):
-            self.liked_comments.remove(comment)
-            
-            
+            self.saved_comments.remove(comment)
+
     def like_posts(self, post):
         if not self.is_liking_post(post):
             self.liked_posts.add(post)
-    
+
     def unlike_posts(self, post):
         if self.is_liking_post(post):
             self.liked_posts.remove(post)
 
-    
     def save_posts(self, post):
         if not self.is_saving_post(post):
             self.saved_posts.add(post)
+
     def unsave_posts(self, post):
         if self.is_saving_post(post):
             self.saved_posts.remove(post)
-            
-    def is_saving_post(self, post):
-        query = self.saved_posts.select().where(Post.id == post.id)
-        return db.session.scalar(query) is not None
-        
 
     def is_saving_comment(self, comment):
         query = self.saved_comments.select().where(Comment.id == comment.id)
@@ -164,8 +159,13 @@ class User(UserMixin, db.Model):
     def is_liking_comment(self, comment):
         query = self.liked_comments.select().where(Comment.id == comment.id)
         return db.session.scalar(query) is not None
+
     def is_liking_post(self, post):
         query = self.liked_posts.select().where(Post.id == post.id)
+        return db.session.scalar(query) is not None
+
+    def is_saving_post(self, post):
+        query = self.saved_posts.select().where(Post.id == post.id)
         return db.session.scalar(query) is not None
 
     def __repr__(self):
@@ -247,30 +247,38 @@ class Post(db.Model):
     user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id),
                                                index=True)
 
-    author: so.Mapped[User] = so.relationship(back_populates='posts')
+    author: so.Mapped['User'] = so.relationship(back_populates='posts')
     # back_populates: reference the name of the relationship attribute on the other side
 
     comments: so.WriteOnlyMapped['Comment'] = so.relationship(
         back_populates='post')
-    
-    liked_by: so.Mapped[User] = so.relationship(
+
+
+    liked_by: so.WriteOnlyMapped['User'] = so.relationship(
         secondary=liked_posts, primaryjoin=(
             liked_posts.c.post_id == id),
-        secondaryjoin="liked_posts.c.user_id == user.c.id",
+        secondaryjoin=(liked_posts.c.user_id == User.id),
         back_populates='liked_posts')
-    
-    saved_by: so.Mapped[User] = so.relationship(
+
+# only wirteonlymapped object have the select method
+    saved_by: so.WriteOnlyMapped['User'] = so.relationship(
         secondary=saved_posts, primaryjoin=(
             saved_posts.c.post_id == id),
         secondaryjoin="saved_posts.c.user_id == user.c.id",
         back_populates='saved_posts')
-    
+
     def like_count(self):
+        # only wirteonlymapped object have the select method
         query = sa.select(sa.func.count()).select_from(
             self.liked_by.select().subquery())
         return db.session.scalar(query)
-    
+    def save_count(self):
+    # only wirteonlymapped object have the select method
+        query = sa.select(sa.func.count()).select_from(
+            self.saved_by.select().subquery())
+        return db.session.scalar(query)
 
+        
 
     def __repr__(self):
         return '<Post {}>'.format(self.body)
@@ -291,7 +299,6 @@ class Post(db.Model):
 
         # a list of Post objects
         return Post.query.filter(Post.id.in_(post_ids)).order_by(Post.timestamp.desc())
-    
 
 
 class Comment(db.Model):
@@ -306,19 +313,24 @@ class Comment(db.Model):
 
     author: so.Mapped[User] = so.relationship(back_populates='comments')
 
-    liked_by: so.Mapped[User] = so.relationship(
+    liked_by: so.WriteOnlyMapped[User] = so.relationship(
         secondary=liked_comments, primaryjoin=(
             liked_comments.c.comment_id == id),
         secondaryjoin="liked_comments.c.user_id == user.c.id",
-        back_populates='liked_comments')
+        back_populates='liked_comments',
+        passive_deletes='all' )
 
-    saved_by: so.Mapped[User] = so.relationship(
+    saved_by: so.WriteOnlyMapped[User] = so.relationship(
         secondary=saved_comments, primaryjoin=(
             saved_comments.c.comment_id == id),
         secondaryjoin="saved_comments.c.user_id == user.c.id",
-        back_populates='saved_comments')
-    
+        back_populates='saved_comments',passive_deletes='all')
+
     def like_count(self):
         query = sa.select(sa.func.count()).select_from(
             self.liked_by.select().subquery())
+        return db.session.scalar(query)
+    def save_count(self):
+        query = sa.select(sa.func.count()).select_from(
+            self.saved_by.select().subquery())
         return db.session.scalar(query)

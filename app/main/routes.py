@@ -170,8 +170,11 @@ def test():
 @bp.route('/post/<post_id>', methods=['GET', 'POST'])
 def post(post_id):
     form = CommentForm()
+    form_delete_comment = EmptyForm()
     form_like_comment = EmptyForm()
-    form_lile_post = EmptyForm()
+    form_save_comment= EmptyForm()
+    form_like_post = EmptyForm()
+    form_save_post=EmptyForm()
     post = db.first_or_404(sa.select(Post).where(Post.id == post_id))
     query = post.comments.select().order_by(Comment.timestamp.desc())
     page = request.args.get('page', 1, type=int)
@@ -189,7 +192,7 @@ def post(post_id):
         flash('Your comment is now live!')
         return redirect(url_for('main.post', post_id=post_id))
     # if form.validate_on_submit():
-    return render_template('post_detail.html',  post=post, form=form, comments=comments.items, next_url=next_url, prev_url=prev_url, form_like_comment=form_like_comment,form_lile_post=form_lile_post)
+    return render_template('post_detail.html',  post=post, form=form, comments=comments.items, next_url=next_url, prev_url=prev_url, form_like_comment=form_like_comment, form_like_post=form_like_post,form_save_comment=form_save_comment,form_save_post=form_save_post,form_delete_comment=form_delete_comment)
 
 
 @bp.route('/post/search')
@@ -218,144 +221,91 @@ def about_us():
 # def test(post_id):
 #     return jsonify({'message': 'Hello, World!', 'post_id': post_id})
 
+def handle_comment_action(action_type, comment_id, current_user):
+    comment = db.first_or_404(sa.select(Comment).where(Comment.id == comment_id))
+    
+    if action_type == 'like':
+        if current_user.is_liking_comment(comment):
+            current_user.unlike_comments(comment)
+            db.session.commit()
+            return {'success': True, 'action': 'unlike', 'likes': comment.like_count()}
+        else:
+            current_user.like_comments(comment)
+            db.session.commit()
+            return {'success': True, 'action': 'like', 'likes': comment.like_count()}
+    elif action_type == 'save':
+        if current_user.is_saving_comment(comment):
+            current_user.unsave_comments(comment)
+            db.session.commit()
+            return {'success': True, 'action': 'unsave', 'saves': comment.save_count()}
+        else:
+            current_user.save_comments(comment)
+            db.session.commit()
+            return {'success': True, 'action': 'save', 'saves': comment.save_count()}
+            
+
 @bp.route('/like_comment/<comment_id>', methods=['POST'])
 @login_required
 def like_comment(comment_id):
-    form = EmptyForm()
-    if form.validate_on_submit():
-        comment = db.first_or_404(
-            sa.select(Comment).where(Comment.id == comment_id))
-        print(current_user.is_liking_comment(comment))
-        if current_user.is_liking_comment(comment):
-            flash(f'You\'ve already liked {comment.author.username}\'s comment.')
-            return redirect(url_for('main.post', post_id=comment.post_id))
-
-        current_user.like_comments(comment)
-        db.session.commit()
-        flash(
-            f'liked {comment.author.username}\'s comment.')
-        return redirect(url_for('main.post', post_id=comment.post_id))
-
-
-@bp.route('/unlike_comment/<comment_id>', methods=['POST'])
-@login_required
-def unlike_comment(comment_id):
-    form = EmptyForm()
-    if form.validate_on_submit():
-        comment = db.first_or_404(
-            sa.select(Comment).where(Comment.id == comment_id))
-        if not current_user.is_liking_comment(comment):
-            
-            flash(f'You\'ve already unliked {comment.author.username}\'s comment.')
-            return redirect(url_for('main.post', post_id=comment.post_id))
-        current_user.unlike_comments(comment)
-        db.session.commit()
-        flash(f'unliked {comment.author.username}\'s comment.')
-        return redirect(url_for('main.post', post_id=comment.post_id))
+    return jsonify(handle_comment_action('like', comment_id, current_user))
 
 
 @bp.route('/save_comment/<comment_id>', methods=['POST'])
 @login_required
 def save_comment(comment_id):
-    form = EmptyForm()
-    if form.validate_on_submit():
-        comment = db.first_or_404(
-            sa.select(Comment).where(Comment.id == comment_id))
-        if current_user.is_saving_comment(comment):
-            flash(
-                f'You\'ve already saved {comment.author.username}\'s comment.')
-            return redirect(url_for('main.post', post_id=comment.post_id))
-
-        current_user.save_comments(comment)
-        db.session.commit()
-        flash(f'saved {comment.author.username}\'s comment.')
-        return redirect(url_for('main.post', post_id=comment.post_id))
+    return jsonify(handle_comment_action('save', comment_id, current_user))
 
 
-@bp.route('/unsave_comment/<comment_id>', methods=['POST'])
+@bp.route('/delete_comment/<int:comment_id>', methods=['POST'])
 @login_required
-def unsave_comment(comment_id):
-    form = EmptyForm()
-    if form.validate_on_submit():
-        comment = db.first_or_404(
-            sa.select(Comment).where(Comment.id == comment_id))
-        if not current_user.is_saving_comment(comment):
+def delete_comment(comment_id):
+    comment = Comment.query.get(comment_id)
+    
+    db.session.delete(comment)
+    db.session.commit()
+    return redirect(url_for('main.post', post_id=comment.post_id))
+    
 
-            flash(f'You already unsaved {comment.author.username}\'s comment.')
-
-            return redirect(url_for('main.post', post_id=comment.post_id))
-
-        current_user.unsave_comments(comment)
-        db.session.commit()
-        flash(f'unsaved {comment.author.username}\'s comment.')
-
-        return redirect(url_for('main.post', post_id=comment.post_id))
 
 ########################################
 
+    
+def handle_post_action(action_type, post_id, current_user):
+    post = db.first_or_404(sa.select(Post).where(Post.id == post_id))
+    
+    if action_type == 'like':
+        if current_user.is_liking_post(post):
+            current_user.unlike_posts(post)
+            db.session.commit()
+            likes = post.like_count()
+            return {'success': True, 'action': 'unlike', 'likes': likes}
+        else:
+            current_user.like_posts(post)
+            db.session.commit()
+            saves = post.like_count()
+            return {'success': True, 'action': 'like', 'likes': saves}
+    elif action_type == 'save':
+        if current_user.is_saving_post(post):
+            current_user.unsave_posts(post)
+            db.session.commit()
+            return {'success': True, 'action': 'unsave', 'saves': post.save_count()}
+        else:
+            current_user.save_posts(post)
+            print(1)
+            db.session.commit()
+            return {'success': True, 'action': 'save','saves': post.save_count()}
+    
+    # db.session.commit()
+    # return {'success': True, 'action': 'like' if action_type == 'like' else 'save'}
 
 @bp.route('/like_post/<post_id>', methods=['POST'])
 @login_required
 def like_post(post_id):
-    form = EmptyForm()
-    if form.validate_on_submit():
-        post = db.first_or_404(sa.select(Post).where(Post.id == post_id))
-        if current_user.is_liking_post(post):
-            flash(f'You already liked {post.author.username}\'s post.')
-            return redirect(url_for('main.post', post_id=post_id))
+    return jsonify(handle_post_action('like', post_id, current_user))
 
-        current_user.like_posts(post)
-        db.session.commit()
-        flash(f'liked {post.author.username}\'s post.')
-        return redirect(url_for('main.post', post_id=post_id))
-
-
-@bp.route('/unlike_post/<post_id>', methods=['POST'])
-@login_required
-def unlike_post(post_id):
-    form = EmptyForm()
-    if form.validate_on_submit():
-        post = db.first_or_404(sa.select(Post).where(Post.id == post_id))
-        if not current_user.is_liking_post(post):
-            flash(f'You already unliked {post.author.username}\'s post.')
-            return redirect(url_for('main.post', post_id=post_id))
-
-        current_user.unlike_posts(post)
-        db.session.commit()
-
-        flash(f'unliked {post.author.username}\'s post.')
-        return redirect(url_for('main.post', post_id=post_id))
 
 
 @bp.route('/save_post/<post_id>', methods=['POST'])
 @login_required
 def save_post(post_id):
-    form = EmptyForm()
-    if form.validate_on_submit():
-        post = db.first_or_404(sa.select(Post).where(Post.id == post_id))
-        if not current_user.is_saving_post(post):
-            flash(f'You already saved {post.author.username}\'s post.')
-            return redirect(url_for('main.post', post_id=post_id))
-
-        current_user.like_posts(post)
-        db.session.commit()
-
-        flash(f'saved {post.author.username}\'s post.')
-        return redirect(url_for('main.post', post_id=post_id))
-
-
-@bp.route('/unsave_post/<post_id>', methods=['POST'])
-@login_required
-def unsave_post(post_id):
-    form = EmptyForm()
-    if form.validate_on_submit():
-        post = db.first_or_404(sa.select(Post).where(Post.id == post_id))
-        if not current_user.is_saving_post(post):
-            flash(f'You already unsaved {post.author.username}\'s post.')
-            return redirect(url_for('main.post', post_id=post_id))
-
-        current_user.unlike_posts(post)
-        db.session.commit()
-
-        flash(f'unsaved {post.author.username}\'s post.')
-        return redirect(url_for('main.post', post_id=post_id))
+    return jsonify(handle_post_action('save', post_id, current_user))
