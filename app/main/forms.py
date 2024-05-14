@@ -28,6 +28,13 @@ class EditProfileForm(FlaskForm):
 class EmptyForm(FlaskForm):
     submit = SubmitField('Submit')
 
+# class EmptyFormLikeComment(FlaskForm):
+#     like_comment = SubmitField('Like')
+    
+
+# class EmptyFormSavePost(FlaskForm):
+#     like_comment = SubmitField('Unlike')
+
 
 class PostForm(FlaskForm):
     title=StringField('Title',validators=[
