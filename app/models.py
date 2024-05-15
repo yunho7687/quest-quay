@@ -251,21 +251,24 @@ class Post(db.Model):
     # back_populates: reference the name of the relationship attribute on the other side
 
     comments: so.WriteOnlyMapped['Comment'] = so.relationship(
-        back_populates='post')
+        back_populates='post',
+        passive_deletes='all')
 
 
     liked_by: so.WriteOnlyMapped['User'] = so.relationship(
         secondary=liked_posts, primaryjoin=(
             liked_posts.c.post_id == id),
         secondaryjoin=(liked_posts.c.user_id == User.id),
-        back_populates='liked_posts')
+        back_populates='liked_posts',
+        passive_deletes='all')
 
 # only wirteonlymapped object have the select method
     saved_by: so.WriteOnlyMapped['User'] = so.relationship(
         secondary=saved_posts, primaryjoin=(
             saved_posts.c.post_id == id),
         secondaryjoin="saved_posts.c.user_id == user.c.id",
-        back_populates='saved_posts')
+        back_populates='saved_posts',
+        passive_deletes='all')
 
     def like_count(self):
         # only wirteonlymapped object have the select method

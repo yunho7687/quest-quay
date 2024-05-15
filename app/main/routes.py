@@ -175,6 +175,7 @@ def post(post_id):
     form_save_comment= EmptyForm()
     form_like_post = EmptyForm()
     form_save_post=EmptyForm()
+    form_delete_post=EmptyForm()
     post = db.first_or_404(sa.select(Post).where(Post.id == post_id))
     query = post.comments.select().order_by(Comment.timestamp.desc())
     page = request.args.get('page', 1, type=int)
@@ -192,7 +193,7 @@ def post(post_id):
         flash('Your comment is now live!')
         return redirect(url_for('main.post', post_id=post_id))
     # if form.validate_on_submit():
-    return render_template('post_detail.html',  post=post, form=form, comments=comments.items, next_url=next_url, prev_url=prev_url, form_like_comment=form_like_comment, form_like_post=form_like_post,form_save_comment=form_save_comment,form_save_post=form_save_post,form_delete_comment=form_delete_comment)
+    return render_template('post_detail.html',  post=post, form=form, comments=comments.items, next_url=next_url, prev_url=prev_url, form_like_comment=form_like_comment, form_like_post=form_like_post,form_save_comment=form_save_comment,form_save_post=form_save_post,form_delete_comment=form_delete_comment,form_delete_post=form_delete_post)
 
 
 @bp.route('/post/search')
@@ -264,7 +265,16 @@ def delete_comment(comment_id):
     db.session.delete(comment)
     db.session.commit()
     return redirect(url_for('main.post', post_id=comment.post_id))
+
+@bp.route('/delete_post/<int:post_id>', methods=['POST'])
+@login_required
+def delete_post(post_id):
+    post = Post.query.get(post_id)
+    db.session.delete(post)
+    db.session.commit()
+    return redirect(url_for('main.index'))
     
+
 
 
 ########################################
