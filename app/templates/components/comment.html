@@ -45,6 +45,8 @@
               action="{{ url_for('main.like_comment', comment_id=comment.id) }}"
               method="post"
             >
+            {% set comment_id = comment.id | string %}
+            {{form_like_comment.csrf_token(id=comment_id+'d')}}
               {{form_like_comment.submit(value='Like') }}
             </form>
 
@@ -88,11 +90,8 @@
           </button>
         </div>
         <div>
-          {% if comment.author == current_user %}
+          {% if comment.author == current_user or post.author == current_user %}
 
-          <!-- <a href="#" title="Edit" class="card-link">Edit</a> -->
-
-          {% endif %} {% if post.id == comment.post_id %}
           <form class="d-inline-flex " action="{{ url_for('main.delete_comment', comment_id=comment.id) }}" method="post">
             {{form_delete_comment.submit(value='Delete',class_="btn btn-link text-danger p-0 card-link delete-btn") }}
           </form>
