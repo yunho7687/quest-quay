@@ -6,7 +6,10 @@ $(document).ready(function () {
   const saveCommentForm = $("form.save-comment-form");
   const likePostForm = $("form.like-post-form");
   const savePostForm = $("form.save-post-form");
+  const uploadFileElement = $('[name="uploadFile"]');
 
+
+  uploadFileElement.addClass("form-control mt-2");
   $(".like-comment").each(function () {
     $(this).on("click", function () {
       $(this).children("form").submit();
