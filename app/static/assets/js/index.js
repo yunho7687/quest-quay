@@ -7,8 +7,42 @@ $(document).ready(function () {
   const likePostForm = $("form.like-post-form");
   const savePostForm = $("form.save-post-form");
   const uploadFileElement = $('[name="uploadFile"]');
+  const submitComment = $("#submit-comment");
 
+  submitComment.on("click", function (e) {
 
+    if ($("#comment").val() != "" ){
+      $(this).prop("disabled", true);
+      $(this).attr("value", "uploading...");
+      const jqform = $(this).parent("form");
+      const url = jqform.attr("action")
+      const form = jqform.get(0);
+      const formData = new FormData(form)
+      
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: formData, // 使用FormData对象
+      processData: false, // 不要处理数据
+      contentType: false, // 不要设置内容类型
+      success: function (response, status) {
+      window.scrollTo(0, 0)
+
+       setTimeout(() => {
+        location.reload();
+
+       }, 50);
+       
+     
+      },
+      error: function (xhr, status, error) {
+        console.error("Error liking comment: " + error); // Error logging
+      },
+    });
+
+    }
+
+  });
   uploadFileElement.addClass("form-control mt-2");
   $(".like-comment").each(function () {
     $(this).on("click", function () {
