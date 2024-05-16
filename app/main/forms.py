@@ -65,7 +65,7 @@ class SearchForm(FlaskForm):
 class CommentForm(FlaskForm):
     comment = TextAreaField('Comment:', validators=[DataRequired(), Length(min=1, max=140)])
     submit = SubmitField('Submit',id='submit-comment')
-    uploadFile = FileField('Upload Image', validators=[
+    uploadFile = FileField('Upload Image',validators=[
         FileAllowed(['jpg', 'png'], 'Images only!')
     ])
     
