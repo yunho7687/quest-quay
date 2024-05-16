@@ -7,7 +7,14 @@
           class="text-decoration-none user-popup"
           href="{{ url_for('main.user', username=comment.author.username)}}"
         >
-          <img class="rounded-circle" src="{{comment.author.avatar(36)}}" />
+
+        {% if  post.author.avatar_url %}
+        <img class="rounded-circle profile-avatar-mid profile-avatar-popup object-fit-cover " src="{{post.author.avatar_url}}" />
+        {% else %}
+        <img class="rounded-circle " src="{{ post.author.avatar(36) }} style="margin: 5px; float: left"" />
+        {% endif %}
+
+
           <span class="badge text-bg-secondary ms-2 mb-2"
             >{{comment.author.username}}</span
           >

@@ -276,6 +276,11 @@ table:hover {
   height: 26px;
 
 }
+.profile-avatar-mid{
+  width: 36px;
+  height: 36px;
+
+}
 .comment-image{
 margin-bottom: 20px;
 }
