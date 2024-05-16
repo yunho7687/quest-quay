@@ -60,7 +60,7 @@ def upgrade():
         """
         CREATE TRIGGER post_after_delete AFTER DELETE ON Post
             BEGIN
-                DELETE FROM post_search WHERE post_id = new.id;
+                DELETE FROM post_search WHERE post_id = old.id;
             END;
         """
     )
