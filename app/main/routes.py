@@ -6,8 +6,11 @@ import sqlalchemy as sa
 from app import db
 from app.models import User, Post, Comment
 from datetime import datetime, timezone
-from app.main.forms import EditProfileForm, EmptyForm, PostForm, SearchForm, CommentForm
+from app.main.forms import EditProfileForm, EmptyForm, PostForm, SearchForm, CommentForm,UploadForm
+from werkzeug.utils import secure_filename
 from app.main import bp
+import os
+import uuid
 
 
 @bp.before_request
@@ -33,6 +36,29 @@ def index():
     if form.validate_on_submit():
         post = Post(title=form.title.data,
                     body=form.post.data, author=current_user)
+        
+        file = form.uploadFile.data
+        if form.uploadFile.data:
+            base_dir=current_app.config['UPLOAD_FOLDER']+"/post/"
+            user_dir = os.path.join(base_dir, current_user.username)
+            if not os.path.exists(user_dir):  
+                try:
+                    os.makedirs(user_dir)  
+
+                except OSError as e:
+                    print(f"Error: {e.strerror} - Directory {user_dir} could not be created.")
+            else:
+                print(f"Directory already exists for user {current_user.username} at {user_dir}")
+        
+            filename = secure_filename(file.filename)
+            extension = os.path.splitext(filename)[1]
+            filename = str(uuid.uuid4().hex) + extension
+            
+            file.save(os.path.join(user_dir, filename))
+            user_dir = "/static/images/post/"+ current_user.username
+            post.image_url=os.path.join(user_dir, filename)
+            flash('Image successfully uploaded!')
+        
         db.session.add(post)
         db.session.commit()
         flash('Your post is now live!')
@@ -57,6 +83,7 @@ def index():
 @bp.route('/explore')
 @login_required
 def explore():
+    form = EmptyForm()
     page = request.args.get('page', 1, type=int)
     query = sa.select(Post).order_by(Post.timestamp.desc())
     # posts = db.session.scalars(query).all()
@@ -67,7 +94,7 @@ def explore():
     prev_url = url_for('main.explore', page=posts.prev_num) \
         if posts.has_prev else None
 
-    return render_template("index.html", title='Explore', posts=posts.items,
+    return render_template("index.html", title='Explore', posts=posts.items,form=form,
                            next_url=next_url, prev_url=prev_url)
 
 
@@ -75,7 +102,7 @@ def explore():
 @bp.route('/user/<username>')
 @login_required
 def user(username):
-
+    upload_form = UploadForm()
     user = db.first_or_404(sa.select(User).where(User.username == username))
     page = request.args.get('page', 1, type=int)
     # query = sa.select(Post).join(Post.author).where(
@@ -95,14 +122,36 @@ def user(username):
 
 
 @bp.route('/edit_profile', methods=['GET', 'POST'])
+@login_required
 def edit_profile():
     form = EditProfileForm(current_user.username)
+
     if form.validate_on_submit():
+        if form.uploadFile.data:
+            base_dir=current_app.config['UPLOAD_FOLDER']+"/avatar/"
+            user_dir = os.path.join(base_dir, current_user.username)
+            if not os.path.exists(user_dir): 
+                try:
+                    os.makedirs(user_dir)
+                    print(f"Directory created for user {current_user.username} at {user_dir}")
+                except OSError as e:
+                    print(f"Error: {e.strerror} - Directory {user_dir} could not be created.")
+            else:
+                print(f"Directory already exists for user {current_user.username} at {user_dir}")
+            file = form.uploadFile.data
+            filename = secure_filename(file.filename)
+            extension = os.path.splitext(filename)[1]
+            filename = str(uuid.uuid4().hex) + extension
+            
+            file.save(os.path.join(user_dir, filename))
+            user_dir = "/static/images/avatar/"+ current_user.username
+            current_user.avatar_url=os.path.join(user_dir, filename)
+            flash('Image successfully uploaded!')
         current_user.username = form.username.data
         current_user.about_me = form.about_me.data
         db.session.commit()
         flash('Your changes have been saved.')
-        return redirect(url_for('main.edit_profile'))
+        return redirect(url_for('main.user',username=current_user.username))
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
@@ -188,6 +237,28 @@ def post(post_id):
     if form.validate_on_submit():
         comment = Comment(body=form.comment.data,
                           post=post, author=current_user)
+        file = form.uploadFile.data
+        if form.uploadFile.data:
+            base_dir=current_app.config['UPLOAD_FOLDER']+"/comment/"
+            user_dir = os.path.join(base_dir, current_user.username)
+            if not os.path.exists(user_dir):  
+                try:
+                    os.makedirs(user_dir)  
+
+                except OSError as e:
+                    print(f"Error: {e.strerror} - Directory {user_dir} could not be created.")
+            else:
+                print(f"Directory already exists for user {current_user.username} at {user_dir}")
+        
+            filename = secure_filename(file.filename)
+            extension = os.path.splitext(filename)[1]
+            filename = str(uuid.uuid4().hex) + extension
+            
+            file.save(os.path.join(user_dir, filename))
+            user_dir = "/static/images/comment/"+ current_user.username
+            comment.image_url=os.path.join(user_dir, filename)
+            flash('Image successfully uploaded!')
+        
         db.session.add(comment)
         db.session.commit()
         flash('Your comment is now live!')
@@ -319,3 +390,14 @@ def like_post(post_id):
 @login_required
 def save_post(post_id):
     return jsonify(handle_post_action('save', post_id, current_user))
+
+# @app.route('/upload', methods=['POST'])
+# def upload_file():
+#     form = UploadForm()
+#     if form.validate_on_submit():
+#         file = form.file.data
+#         filename = secure_filename(file.filename)
+#         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+#         flash('File successfully uploaded')
+#         return redirect(url_for('upload_file'))
+#     return render_template('upload.html', form=form)

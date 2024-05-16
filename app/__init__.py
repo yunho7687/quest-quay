@@ -13,7 +13,7 @@ import logging
 from logging.handlers import SMTPHandler
 from logging.handlers import RotatingFileHandler
 
-from config import Config
+
 
 
 db = SQLAlchemy()

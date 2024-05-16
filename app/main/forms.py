@@ -6,12 +6,19 @@ from wtforms.validators import Length
 import sqlalchemy as sa
 from app import db
 from app.models import User
+from flask_wtf.file import FileField, FileAllowed, FileRequired
+
+import app
+import os
 
 
 class EditProfileForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     about_me = TextAreaField('About me', validators=[Length(min=0, max=140)])
     submit = SubmitField('Submit')
+    uploadFile = FileField('Upload Avatar', validators=[
+        FileAllowed(['jpg', 'png'], 'Images only!')
+    ])
 
     def __init__(self, original_username, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -27,6 +34,9 @@ class EditProfileForm(FlaskForm):
 
 class EmptyForm(FlaskForm):
     submit = SubmitField('Submit')
+    uploadFile = FileField('Upload Image', validators=[
+        FileAllowed(['jpg', 'png'], 'Images only!')
+    ])
 
 # class EmptyFormLikeComment(FlaskForm):
 #     like_comment = SubmitField('Like')
@@ -42,6 +52,9 @@ class PostForm(FlaskForm):
     post = TextAreaField('Quest', validators=[
         DataRequired(), Length(min=1, max=140)])
     submit = SubmitField('Submit')
+    uploadFile = FileField('Upload Image', validators=[
+        FileAllowed(['jpg', 'png'], 'Images only!')
+    ])
 
 
 class SearchForm(FlaskForm):
@@ -52,3 +65,12 @@ class SearchForm(FlaskForm):
 class CommentForm(FlaskForm):
     comment = TextAreaField('Comment:', validators=[DataRequired(), Length(min=1, max=140)])
     submit = SubmitField('Submit',id='submit-comment')
+    uploadFile = FileField('Upload Image', validators=[
+        FileAllowed(['jpg', 'png'], 'Images only!')
+    ])
+    
+class UploadForm(FlaskForm):
+    uploadFile = FileField('image', validators=[
+        FileRequired(),
+        FileAllowed(['jpg', 'png'], 'Images only!')
+    ])

@@ -263,3 +263,20 @@ table:hover {
   background-color: rgba(223, 223, 223, 0.2);
   z-index: 100;
 }
+.profile-avatar{
+  width: 128px;
+  height: 128px;
+}
+.profile-avatar-popup{
+  width: 64px;
+  height: 64px;
+}
+.profile-avatar-small{
+  width: 26px;
+  height: 26px;
+
+}
+.comment-image{
+margin-bottom: 20px;
+}
+

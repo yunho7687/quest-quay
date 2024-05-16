@@ -132,3 +132,5 @@ log
 *.tree
 *.idea
 app.db
+uploads/
+app/static/images/*

@@ -79,6 +79,8 @@ class User(UserMixin, db.Model):
     email: so.Mapped[str] = so.mapped_column(sa.String(120), index=True,
                                              unique=True)
     password_hash: so.Mapped[Optional[str]] = so.mapped_column(sa.String(256))
+    
+    avatar_url: so.Mapped[Optional[str]] = so.mapped_column(sa.String(256),nullable=True)
 
     posts: so.WriteOnlyMapped['Post'] = so.relationship(
         back_populates='author')
@@ -118,6 +120,7 @@ class User(UserMixin, db.Model):
         secondary=saved_posts, primaryjoin=(saved_posts.c.user_id == id),
         secondaryjoin="saved_posts.c.post_id == post.c.id",
         back_populates='saved_by')
+    
     
 
     def like_comments(self, comment):
@@ -253,6 +256,8 @@ class Post(db.Model):
     comments: so.WriteOnlyMapped['Comment'] = so.relationship(
         back_populates='post',
         passive_deletes='all')
+    
+    image_url: so.Mapped[Optional[str]] = so.mapped_column(sa.String(256),nullable=True)
 
 
     liked_by: so.WriteOnlyMapped['User'] = so.relationship(
@@ -315,6 +320,8 @@ class Comment(db.Model):
     post: so.Mapped[Post] = so.relationship(back_populates='comments')
 
     author: so.Mapped[User] = so.relationship(back_populates='comments')
+    
+    image_url: so.Mapped[Optional[str]] = so.mapped_column(sa.String(256),nullable=True)
 
     liked_by: so.WriteOnlyMapped[User] = so.relationship(
         secondary=liked_comments, primaryjoin=(

@@ -100,6 +100,12 @@ content %}
   </div>
 
   <p class="fw-medium">{{post.body}}</p>
+  <div class="container ">
+    {% if post.image_url %}
+    <img class="w-100 object-fit-cover comment-image" src="{{post.image_url}}" alt="">
+    {% endif %}
+  </div>
+
 
   {% if comments %} {% for comment in comments %}
 
@@ -111,8 +117,15 @@ content %}
 
   {% endif %}
 
-  <form action="" method="post" class="mt-3">
-    {{form.csrf_token(id="csrf-post")}} {{wtf.form_field(form.comment)}}
+  <form action="" method="post" class="mt-3" enctype="multipart/form-data">
+    {{form.csrf_token(id="csrf-post")}} 
+    {{wtf.form_field(form.comment)}}
+    <p class="mt-3 ">
+      <span class="me-2">
+          {{form.uploadFile.label()}}:
+          </span>
+      {{form.uploadFile()}}
+    </p>
     {{wtf.form_field(form.submit)}}
   </form>
 </div>

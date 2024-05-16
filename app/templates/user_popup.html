@@ -1,5 +1,12 @@
 <div>
-    <img class="rounded-circle" src="{{ user.avatar(64) }}" style="margin: 5px; float: left">
+    {% if  user.avatar_url %}
+    <img class="rounded-circle me-3 profile-avatar profile-avatar-popup object-fit-cover " src="{{user.avatar_url}}" />
+    {% else %}
+    <img class="rounded-circle me-3 " src="{{ user.avatar(64) }} style="margin: 5px; float: left"" />
+    {% endif %}
+    
+
+
     <p><a href="{{ url_for('main.user', username=user.username) }}">{{ user.username }}</a></p>
     {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
     <div class="clearfix"></div>

@@ -11,6 +11,7 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
+    uploadFile=StringField('Username', validators=[DataRequired()])
 
 
 class RegistrationForm(FlaskForm):
@@ -21,6 +22,7 @@ class RegistrationForm(FlaskForm):
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
+    uploadFile=StringField('Username', validators=[DataRequired()])
 
     def validate_username(self, username):
         user = db.session.scalar(sa.select(User).where(
@@ -38,6 +40,7 @@ class RegistrationForm(FlaskForm):
 class ResetPasswordRequestForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     submit = SubmitField('Request Password Reset')
+    uploadFile=StringField('Username', validators=[DataRequired()])
 
 
 class ResetPasswordForm(FlaskForm):

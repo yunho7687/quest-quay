@@ -5,8 +5,8 @@
 <div class="col-11  col-md-8">
     {% include "components/alerts.html" %}
     <h1>Edit Profile</h1>
-    <form action="{{ url_for('main.edit_profile')  }}" method="post">
-
+    <form action="{{ url_for('main.edit_profile')  }}"method="post" enctype="multipart/form-data">
+      
         {{ form.hidden_tag() }}
 
         <p>
@@ -15,8 +15,29 @@
         <p>
             {{ wtf.form_field(form.about_me) }}
         </p>
+     
+        <p>
+            <span class="me-2 ">
+                {{form.uploadFile.label()}}:
+                </span>
+            {{form.uploadFile()}}
+            
+        </p>
+            
+        </p>
         <p> {{ wtf.form_field(form.submit) }}</p>
     </form>
+
+{% if form.uploadFile.errors %}
+    {% for error in form.uploadFile.errors %}
+        <div style="color: red;">{{ error }}</div>
+    {% endfor %}
+{% endif %}
+    <!-- <form action="">
+
+        {}
+       
+    </form> -->
 </div>
    
 {% endblock %}

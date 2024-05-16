@@ -16,7 +16,11 @@
         class="user-name user-popup my-2   me-3 d-inline-flex   align-items-center "
         href="{{ url_for('main.user', username=post.author.username) }}"
       >
-      <img class="rounded-circle me-2 " src="{{ post.author.avatar(26) }}" />
+      {% if  user.avatar_url %}
+      <img class="rounded-circle me-3 profile-avatar-small  profile-avatar-popup object-fit-cover " src="{{user.avatar_url}}" />
+      {% else %}
+      <img class="rounded-circle me-3 " src="{{ user.avatar(26) }} style="margin: 5px; float: left"" />
+      {% endif %}
         <span class="text-success  ">{{ post.author.username }}</span> 
         </a
       >
@@ -25,7 +29,11 @@
       </div>
     </div>
     <div class="col-md-4 ">
-      <img  src="https://www.uwa.edu.au/-/media/project/uwa/uwa/uwa-corporate/rich-text/sis_illus-swimmingswan_cmyk.png" class="d-none d-md-inline  post-image rounded-end-4 object-fit-cover   " alt="">
+    {% set img_rul= post.image_url %}
+      {% if not img_rul %}
+      {% set img_rul= "https://www.uwa.edu.au/-/media/project/uwa/uwa/uwa-corporate/rich-text/sis_illus-swimmingswan_cmyk.png" %}
+      {% endif %}
+      <img  src={{img_rul}} class="d-none d-md-inline  post-image rounded-end-4 object-fit-cover   " alt="swimmingswan">
     </div>
 
   </div>
