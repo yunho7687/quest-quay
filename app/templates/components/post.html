@@ -1,4 +1,4 @@
-
+{% if user %}
 
 <div class=" card mb-4 border-0 card-bg rounded-4  shadow  " >
   <div class="row g-0 ">
@@ -13,7 +13,7 @@
         </div>
 
         <a
-        class="user-name user-popup my-2   me-3 d-inline-flex   align-items-center "
+        class="user-name user-popup my-2  me-3 d-inline-flex   align-items-center "
         href="{{ url_for('main.user', username=post.author.username) }}"
       >
       {% if  user.avatar_url %}
@@ -38,3 +38,4 @@
 
   </div>
 </div>
+{% endif %}
