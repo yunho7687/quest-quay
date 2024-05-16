@@ -15,3 +15,5 @@ class Config:
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     ADMINS = ['your-email-admin@exampleadmin.com']
     POSTS_PER_PAGE = 10
+    UPLOAD_FOLDER = 'app/static/images'
+    MAX_CONTENT_LENGTH = 5 * 1024 * 1024
