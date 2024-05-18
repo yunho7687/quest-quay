@@ -279,7 +279,6 @@ def post_search():
         if posts.has_next else None
     prev_url = url_for('main.post_search', q=query , page=posts.prev_num) \
         if posts.has_prev else None
-    # return render_template('post_detail.html',  post=post)
 
     return render_template('post_search.html', query=query, posts=posts.items, next_url=next_url, prev_url=prev_url)
 
@@ -287,6 +286,53 @@ def post_search():
 @bp.route('/post/about_us')
 def about_us():
     return render_template('about_us.html')
+
+
+@bp.route('/likes/<type>')
+def likes(type):
+    page = request.args.get('page', 1, type=int)
+    if type == 'post':
+        query = current_user.liked_posts.select().order_by(Post.timestamp.desc())
+        print(query)
+        posts = db.paginate(query, page=page,
+                            per_page=current_app.config['POSTS_PER_PAGE'], error_out=False)
+        print(posts.items)
+        next_url = url_for('main.likes', posts=posts.items , page=posts.next_num) \
+            if posts.has_next else None
+        prev_url = url_for('main.likes', posts=posts.items , page=posts.prev_num) \
+            if posts.has_prev else None
+        return render_template('likes.html', posts=posts.items, next_url=next_url, prev_url=prev_url)
+    else:
+        query = current_user.liked_comments.select().order_by(Comment.timestamp.desc())
+        comments = db.paginate(query, page=page,
+                            per_page=current_app.config['POSTS_PER_PAGE'], error_out=False)
+        next_url = url_for('main.likes', comments=comments.items , page=posts.next_num) \
+            if posts.has_next else None
+        prev_url = url_for('main.likes', comments=comments.items , page=posts.prev_num) \
+            if posts.has_prev else None
+        return render_template('likes.html')
+
+@bp.route('/saves/<type>')
+def saves(type):
+    page = request.args.get('page', 1, type=int)
+    if type == 'post':
+        query = current_user.saved_posts.select().order_by(Post.timestamp.desc())
+        posts = db.paginate(query, page=page,
+                            per_page=current_app.config['POSTS_PER_PAGE'], error_out=False)
+        next_url = url_for('main.likes', posts=posts.items , page=posts.next_num) \
+            if posts.has_next else None
+        prev_url = url_for('main.likes', posts=posts.items , page=posts.prev_num) \
+            if posts.has_prev else None
+        return render_template('save.html',posts=posts.items, next_url=next_url, prev_url=prev_url)
+    else:
+        query = current_user.saved_comments.select().order_by(Comment.timestamp.desc())
+        comments = db.paginate(query, page=page,
+                            per_page=current_app.config['POSTS_PER_PAGE'], error_out=False)
+        next_url = url_for('main.likes', comments=comments.items , page=posts.next_num) \
+            if posts.has_next else None
+        prev_url = url_for('main.likes', comments=comments.items , page=posts.prev_num) \
+            if posts.has_prev else None
+        return render_template('likes.html')
 
 
 # @bp.route('/post/<post_id>/popup')
