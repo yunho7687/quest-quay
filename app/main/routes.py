@@ -275,9 +275,9 @@ def post_search():
     query = request.args.get('q', '', type=str)
     posts = db.paginate(Post.search_posts(query), page=page,
                         per_page=current_app.config['POSTS_PER_PAGE'], error_out=False)
-    next_url = url_for('main.post_search', q=g.search_form.q.data, page=posts.next_num) \
+    next_url = url_for('main.post_search', q=query , page=posts.next_num) \
         if posts.has_next else None
-    prev_url = url_for('main.post_search', q=g.search_form.q.data, page=posts.prev_num) \
+    prev_url = url_for('main.post_search', q=query , page=posts.prev_num) \
         if posts.has_prev else None
     # return render_template('post_detail.html',  post=post)
 
