@@ -310,10 +310,13 @@ margin-bottom: 20px;
 
 }
 
-.nav-link:hover{
+.nav-link svg:hover{
 transform: scale(1.2);
 color: #ffc107;
 }
 [data-bs-theme="dark"] .nav-link:hover{
   color: #ffc107;
+}
+#navbarCollapse > ul{
+  text-align: center;
 }
