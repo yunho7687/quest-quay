@@ -6,6 +6,7 @@
  - With a clean and straightforward design, we prioritize a **user-friendly interface** that empowers users to navigate and utilize the platform with ease. By **enabling account creation** and **quest management** in an efficient manner, our platform excels in fostering a user-centric environment for **exchanging sideas**, **solving problems**, and building community connections. 
 <br /> 
 <br />
+
  >Team Members   
 
 |  UWA Id   | Name  | GitHub |
@@ -15,6 +16,7 @@
 | 23936657  | Jeffrey Wan |[Jeffrey86Wan](https://github.com/Jeffrey86Wan)|
 | 24122502  | Lanyizhe Deng |[woshixigou](https://github.com/woshixigou)|
 <br />
+
  >A brief summary of the architecture of the application   
 
 **Frontend**   
@@ -38,10 +40,10 @@ cd quest-quay
 ### Step 1: Create a Python virtual environment and activate the Python interpreter from it.
 #### Mac or Linux:
 ```bash
-(venv) $ python3 -m venv venv
+python3 -m venv venv
 ```
 ```bash
-(venv) $  source venv/bin/activate
+source venv/bin/activate
 ```
 #### Win PowerShell:
 ```powershell
@@ -57,19 +59,19 @@ venv/Scripts/Activate.ps1
 
 ### Step 2: Install the requirements by `pip3`   
 ```bash
-(venv) $ pip3 install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 
 ### Step 3: Setup the local database and run the server
 #### Start the database
 ```bash
-(venv) $ flask db upgrade
+flask db upgrade
 ```
 #### Prepare for the email-related features(Mac or Linux):
 ``` bash
-(venv) $ export MAIL_SERVER=localhost
-(venv) $ export MAIL_PORT=8025
+export MAIL_SERVER=localhost
+export MAIL_PORT=8025
 ```
 #### Prepare for the email-related features(Win):
 ```powershell
@@ -78,19 +80,19 @@ set MAIL_PORT=8025
 ```
 #### Start the flask app
 ```bash
-(venv) $ flask run
+flask run
 ```
 ### Step 4: Setup a local email server:
 Start a new terminal and make sure in the `quest-quay` directory
 ```bash
-(venv) $ aiosmtpd -n -c aiosmtpd.handlers.Debugging -l localhost:8025
+aiosmtpd -n -c aiosmtpd.handlers.Debugging -l localhost:8025
 ```
 __Note__ after run the code above ⬆️ leave it alone. The email sending information will show in the terminal later once you send the reset password request     
 
 ### Step 5: Populate some mock user and post data:
 Start a new terminal and make sure in the `quest-quay` directory
  ``` bash
- (venv) $ sqlite3 app.db
+sqlite3 app.db
  ```
  ``` bash
 sqlite> PRAGMA trusted_schema=1;      
