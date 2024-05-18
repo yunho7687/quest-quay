@@ -1,5 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Dosis:300,400,500');
+
 html {
   scroll-padding-top: 70px;
+}
+body {
+  font-family: 'Dosis', sans-serif !important;
 }
 [data-bs-theme="dark"] a {
   --bs-body-color: #dee2e6;
@@ -257,10 +262,10 @@ table:hover {
 .delete-btn{
   font-size: 0.875em;
 }
-.dropdown-menu.dropdown-menu-end.show{
-  backdrop-filter: blur(1px);
+.dropdown-menu{
+  backdrop-filter: blur(100px);
   -webkit-backdrop-filter: blur(100px); 
-  background-color: rgba(223, 223, 223, 0.2);
+  background-color: rgba(120, 104, 104, 0.6);
   z-index: 100;
 }
 .profile-avatar{
@@ -290,3 +295,12 @@ margin-bottom: 20px;
  
 }
 
+.dropdown-item.active{
+  background-color: rgba(130, 130, 130, 0.5)
+}
+.dropdown-menu li{
+  width: 100%;
+}
+.dropdown-menu button{
+  width: 100%;
+}
