@@ -6,7 +6,7 @@
  - With a clean and straightforward design, we prioritize a **user-friendly interface** that empowers users to navigate and utilize the platform with ease. By **enabling account creation** and **quest management** in an efficient manner, our platform excels in fostering a user-centric environment for **exchanging sideas**, **solving problems**, and building community connections. 
 <br /> 
 <br />
- >Team Members   
+Team Members   
 
 |  UWA Id   | Name  | GitHub |
 |  :----:  | :----:  | :----:  |
@@ -38,10 +38,10 @@ cd quest-quay
 ### Step 1: Create a Python virtual environment and activate the Python interpreter from it.
 #### Mac or Linux:
 ```bash
-(venv) $ python3 -m venv venv
+$ python3 -m venv venv
 ```
 ```bash
-(venv) $  source venv/bin/activate
+$ source venv/bin/activate
 ```
 #### Win PowerShell:
 ```powershell
@@ -81,16 +81,17 @@ set MAIL_PORT=8025
 (venv) $ flask run
 ```
 ### Step 4: Setup a local email server:
-Start a new terminal and make sure in the `quest-quay` directory
+Start a new terminal and make sure in the `quest-quay` directory     
+(make sure the virtural has been activated)
 ```bash
 (venv) $ aiosmtpd -n -c aiosmtpd.handlers.Debugging -l localhost:8025
 ```
 __Note__ after run the code above ⬆️ leave it alone. The email sending information will show in the terminal later once you send the reset password request     
 
 ### Step 5: Populate some mock user and post data:
-Start a new terminal and make sure in the `quest-quay` directory
+Start a new terminal and make sure in the `quest-quay` directory    
  ``` bash
- (venv) $ sqlite3 app.db
+$ sqlite3 app.db
  ```
  ``` bash
 sqlite> PRAGMA trusted_schema=1;      
