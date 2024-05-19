@@ -1,10 +1,11 @@
 from app.models import User, Post
-from app import app, db
+from app import create_app, db
 import unittest
 from datetime import datetime, timezone, timedelta
 import os
-os.environ['DATABASE_URL'] = 'sqlite://'
+from config import TestingConfig
 
+app = create_app(TestingConfig)
 
 class UserModelCase(unittest.TestCase):
     def setUp(self):
