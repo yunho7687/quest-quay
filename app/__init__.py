@@ -1,6 +1,6 @@
 
 from flask import Flask
-from config import Config
+from config import DeploymentConfig
 import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -26,7 +26,7 @@ login.login_view = 'auth.login'  # regiser the login function as the login view 
 login.login_message = 'Please log in to access this page'
 
 
-def create_app(config_class=Config):
+def create_app(config_class=DeploymentConfig):
     app = Flask(__name__)
     app.config.from_object(config_class)
 

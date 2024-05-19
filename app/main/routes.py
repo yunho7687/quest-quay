@@ -98,7 +98,6 @@ def explore():
                            next_url=next_url, prev_url=prev_url)
 
 
-@bp.route('/user/')
 @bp.route('/user/<username>')
 @login_required
 def user(username):

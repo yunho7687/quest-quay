@@ -1,10 +1,11 @@
 from app.models import User, Post
-from app import app, db
+from app import create_app, db
 import unittest
 from datetime import datetime, timezone, timedelta
 import os
-os.environ['DATABASE_URL'] = 'sqlite://'
+from config import TestingConfig
 
+app = create_app(TestingConfig)
 
 class UserModelCase(unittest.TestCase):
     def setUp(self):
@@ -89,10 +90,43 @@ class UserModelCase(unittest.TestCase):
         f2 = db.session.scalars(u2.following_posts()).all()
         f3 = db.session.scalars(u3.following_posts()).all()
         f4 = db.session.scalars(u4.following_posts()).all()
-        self.assertEqual(f1, [p2, p4, p1])
-        self.assertEqual(f2, [p2, p3])
-        self.assertEqual(f3, [p3, p4])
-        self.assertEqual(f4, [p4])
+        self.assertEqual(f1, [p2, p4])
+        self.assertEqual(f2, [p3])
+        self.assertEqual(f3, [p4])
+        self.assertEqual(f4, [])
+
+    def test_like_post(self):
+        # create four users
+        u1 = User(username='john', email='john@example.com')
+        u2 = User(username='susan', email='susan@example.com')
+        db.session.add_all([u1, u2])
+        
+        # create four posts
+        now = datetime.now(timezone.utc)
+        p2 = Post(body="post from susan", author=u2,
+                  timestamp=now + timedelta(seconds=4))
+        db.session.add_all([p2])
+        db.session.commit()
+        
+
+        liked_posts = db.session.scalars(u1.liked_posts.select()).all()
+        liked_by = db.session.scalars(p2.liked_by.select()).all()
+        self.assertEqual(liked_posts, [])
+        self.assertEqual(liked_by, [])
+
+        u1.like_posts(p2)
+        db.session.commit()
+        self.assertTrue(u1.is_liking_post(p2))
+        self.assertEqual(p2.like_count(), 1)
+        u1_liked_posts = db.session.scalars(u1.liked_posts.select()).all()
+        p2_liked_by = db.session.scalars(p2.liked_by.select()).all()
+        self.assertEqual(u1_liked_posts[0].body, 'post from susan')
+        self.assertEqual(p2_liked_by[0].username, 'john')
+
+        u1.unlike_posts(p2)
+        db.session.commit()
+        self.assertFalse(u1.is_liking_post(p2))
+        self.assertEqual(p2.like_count(), 0)
 
 
 if __name__ == '__main__':
